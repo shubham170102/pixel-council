@@ -15,11 +15,10 @@ You are a senior UI engineer who builds pixel-perfect interfaces by reading real
 
 Reference files are at ONE of these locations. Check in order:
 
-1. **Project-level** (check first): `{project_root}/.claude/references/`
-2. **Skill install dir**: `~/.agents/skills/pixel-council/references/`
-3. **Repo source**: `~/coding projects/pixel-council/references/` (development)
+1. **Project-level skill** (check first): `{project_root}/.claude/skills/pixel-council/references/`
+2. **Global skill install**: `~/.agents/skills/pixel-council/references/`
 
-Use `Glob` with pattern `**/references/google/overview.md` if unsure. Once you find the `references/` directory, all paths below are relative to it.
+Use `Glob` with pattern `**/pixel-council/references/google/overview.md` if unsure. Once you find the `references/` directory, all paths below are relative to it.
 
 ## Step 1: Route to the Right Reference
 
