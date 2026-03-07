@@ -1,6 +1,6 @@
 # Pixel Council
 
-A Claude Code skill that produces production-grade UI — not AI-generated boilerplate. It encodes the real design specifications from Google Material Design 3 and Apple Human Interface Guidelines into 50 component reference files that Claude reads before writing any code.
+A Claude Code plugin that produces production-grade UI — not AI-generated boilerplate. It encodes the real design specifications from Google Material Design 3 and Apple Human Interface Guidelines into 50 component reference files that Claude reads before writing any code.
 
 ## The Problem
 
@@ -26,56 +26,34 @@ Pixel Council gives Claude the actual design system specs — resolved hex value
 | **Apple HIG** | 13 components, 15 system colors (light+dark hex), SF Pro font stack, Liquid Glass CSS, shadow system |
 | **Blended** (default) | 12 components combining Google's systematic tokens with Apple's refinement |
 
+## Plugin Components
+
+| Type | Name | What It Does |
+|------|------|-------------|
+| **Skill** | `pixel-council` | Builds UI from reference specs. Auto-triggers on UI requests or via `/pixel-council` |
+| **Agent** | `ui-reviewer` | Reviews existing UI code against reference specs for design system compliance |
+
 ## Installation
 
-### Option A: Global Install (recommended)
+### Option A: Plugin Install (recommended)
 
-Installs the skill system-wide. Available in **every project** you open with Claude Code.
+Install directly as a Claude Code plugin from GitHub:
+
+```
+/install github:shubham170102/pixel-council
+```
+
+This makes the skill and agent available in every project.
+
+### Option B: Manual Install
 
 ```bash
 git clone https://github.com/shubham170102/pixel-council.git
 cd pixel-council
-./install.sh
-```
 
-This copies the skill and references to `~/.agents/skills/pixel-council/` and creates a symlink at `~/.claude/skills/pixel-council`.
-
-<details>
-<summary>Manual global install (no script)</summary>
-
-```bash
-git clone https://github.com/shubham170102/pixel-council.git
-cd pixel-council
-mkdir -p ~/.agents/skills/pixel-council
-cp skill/SKILL.md ~/.agents/skills/pixel-council/
-cp -r references ~/.agents/skills/pixel-council/
-mkdir -p ~/.claude/skills
-ln -sf ../../.agents/skills/pixel-council ~/.claude/skills/pixel-council
-```
-
-</details>
-
-### Option B: Project-Level Install
-
-Installs into a single project. Only available when working in that project.
-
-```bash
-git clone https://github.com/shubham170102/pixel-council.git
-
-# From your project directory:
-mkdir -p .claude/skills/pixel-council
-cp pixel-council/skill/SKILL.md .claude/skills/pixel-council/
-cp -r pixel-council/references .claude/skills/pixel-council/
-```
-
-This creates:
-```
-your-project/
-└── .claude/
-    └── skills/
-        └── pixel-council/
-            ├── SKILL.md
-            └── references/
+# Copy plugin structure
+mkdir -p ~/.claude/plugins/cache/pixel-council/latest
+cp -r .claude-plugin skills agents LICENSE README.md ~/.claude/plugins/cache/pixel-council/latest/
 ```
 
 ### Verify Installation
@@ -90,15 +68,13 @@ You should see `pixel-council` in the list.
 
 ## Usage
 
-### Explicit Invocation
+### Building UI (Skill)
 
 ```
 /pixel-council build a settings page with profile info and notification toggles
 /pixel-council create a card component, Apple style
 /pixel-council design a dashboard with sidebar, Google Material style
 ```
-
-### Auto-Trigger
 
 The skill also activates automatically when you ask Claude to build UI:
 
@@ -109,7 +85,15 @@ make this look more polished
 design a dashboard with sidebar navigation
 ```
 
-Keywords like "build", "create", "design", "implement" combined with "page", "component", "UI", "screen" trigger the skill.
+### Reviewing UI (Agent)
+
+The `ui-reviewer` agent audits your existing UI code against the reference specs:
+
+```
+Review my Button component against the M3 spec
+Audit this settings page for design system compliance
+Check if my dark mode implementation matches the spec
+```
 
 ### Choosing a Design System
 
@@ -118,7 +102,6 @@ Keywords like "build", "create", "design", "implement" combined with "page", "co
 | Just describe the UI (default) | **Blended** — best of Google + Apple |
 | "Google style" / "Material style" / "M3" | Google Material Design 3 specs |
 | "Apple style" / "iOS style" / "HIG" | Apple Human Interface Guidelines specs |
-| "Combine Google and Apple" | Reads both, synthesizes |
 
 ### What Happens Behind the Scenes
 
@@ -144,50 +127,31 @@ Each file contains:
 - **Do/Don't** — common mistakes and correct patterns
 
 ```
-references/
+skills/pixel-council/references/
 ├── google/                    # 22 components + design system overview
 │   ├── overview.md            # 34 color roles, elevation shadows, typescale, motion easing
 │   └── components/
 │       ├── button.md          # 5 variants, ripple keyframes, state layers
 │       ├── text-field.md      # Filled/outlined, floating label animation
 │       ├── card.md            # Elevated/filled/outlined, hover elevation
-│       ├── dialog.md, tabs.md, navigation-bar.md, navigation-drawer.md
-│       ├── switch.md, chip.md, list.md, menu.md, fab.md
-│       ├── checkbox.md, radio.md, progress.md, slider.md
-│       └── icon-button.md, select.md, snackbar.md, divider.md, badge.md, tooltip.md
+│       └── ... (19 more)
 │
 ├── apple/                     # 13 components + design system overview
 │   ├── overview.md            # System colors, Liquid Glass CSS, SF Pro stack, shadows
 │   └── components/
-│       ├── button.md          # 4 styles, pressed opacity, continuous corners, focus ring
-│       ├── text-field.md, card.md, tab-bar.md, sidebar.md, toolbar.md
-│       ├── list.md, toggle.md, sheet.md, segmented-control.md
-│       └── progress-indicator.md, context-menu.md, alert.md
+│       ├── button.md          # 4 styles, pressed opacity, continuous corners
+│       └── ... (12 more)
 │
 └── blended/                   # 12 components + universal design principles
     ├── design-principles.md   # Spacing scale, easing functions, dark mode tokens
     └── components/
         ├── button.md          # 5 emphasis levels, loading spinner, all states
-        ├── text-field.md, card.md, navigation.md, dialog.md
-        ├── switch.md, list.md, chip.md, progress.md, toast.md
-        └── form-controls.md, misc.md
+        └── ... (11 more)
 ```
-
-## Updating
-
-If you installed globally and want to pull the latest references:
-
-```bash
-cd pixel-council
-git pull
-./install.sh
-```
-
-For project-level installs, re-copy the files from the updated repo.
 
 ## Adding More Design Systems
 
-Adding a new company is just a new folder under `references/`. No skill code changes needed.
+Adding a new company is just a new folder under `skills/pixel-council/references/`. No skill code changes needed.
 
 1. Create `references/{company}/overview.md` with design foundations
 2. Create `references/{company}/components/` with per-component spec files

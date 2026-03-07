@@ -16,10 +16,11 @@ Here's why this matters: without the reference files, you'll produce generic out
 
 ## Step 1: Locate Reference Files
 
-Reference files exist at ONE of these paths (check in order):
+Reference files are bundled with this skill at `references/` relative to this SKILL.md file. If that fails, check these paths:
 
-1. `{project_root}/.claude/skills/pixel-council/references/`
-2. `~/.agents/skills/pixel-council/references/`
+1. `~/.claude/plugins/cache/**/pixel-council/skills/pixel-council/references/`
+2. `{project_root}/.claude/skills/pixel-council/references/`
+3. `~/.agents/skills/pixel-council/references/`
 
 If unsure, glob for `**/pixel-council/references/google/overview.md`.
 
