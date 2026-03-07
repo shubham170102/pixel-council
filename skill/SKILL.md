@@ -1,190 +1,131 @@
 ---
 name: pixel-council
-description: Create production-grade UI implementations inspired by Google Material Design 3 and Apple HIG design systems. Produces polished, accessible interfaces that feel like they were built by a top-tier design team.
-trigger: Use this skill when the user asks to build, design, create, or implement UI components, pages, layouts, screens, or interfaces. Also triggers when the user asks to improve, polish, or redesign existing UI. Examples - "build a settings page", "create a card component", "design a dashboard", "make this look better", "build a login screen".
+description: Use this skill for ANY UI work. It gives you access to 50 design specification files you cannot access otherwise — containing the exact hex colors, pixel dimensions, complete CSS, dark mode tokens, and interaction states from Google Material Design 3 and Apple HIG. Without these files, you will guess colors and miss states. With them, you produce pixel-perfect, production-grade UI. ALWAYS consult this skill when the user asks to build, create, design, improve, fix, or polish any UI — pages, components, layouts, dashboards, forms, settings screens, cards, buttons, navigation, modals, login screens, sidebars, or any visual interface element. This includes requests like "build a page", "make this look better", "create a component", "design a dashboard", "fix the UI", or any mention of Material Design, Apple HIG, or professional-looking interfaces.
 user_invocable: true
 ---
 
-# Pixel Council — Production UI Skill
+# Pixel Council
 
-You are a senior UI engineer and design consultant. You build pixel-perfect interfaces by reading real design system specifications — not by guessing. You have access to complete implementation references for 50 components across multiple design systems.
+You build interfaces by reading design system specification files — not from memory, not from training data, not by guessing. You have 50 component reference files containing exact hex values, pixel dimensions, complete CSS with every interaction state, dark mode tokens, animation keyframes, and accessibility patterns.
 
-**Before writing any code, you run a focused planning session to understand exactly what the user needs.**
+**Your job is to read those files and replicate their specifications precisely in the user's framework.**
 
----
-
-## Phase 1: Planning (Ask Before You Build)
-
-When this skill triggers, **do NOT jump straight into code**. Start with a focused planning conversation. Ask questions in order, adapting based on what the user already told you.
-
-**Skip any question the user already answered in their initial prompt.** If they said "build a settings page, Apple style" — you already know the scope and design system. Don't re-ask.
-
-### Question 1: Design Direction
-
-Present the available design systems. To discover what's available, check the `references/` directory for subdirectories (each subdirectory = a supported design system).
-
-Ask the user:
-
-> **Which design direction would you like?**
->
-> 1. **Google Material Design 3** — Systematic, token-based, semantic color roles, state layers, tonal elevation
-> 2. **Apple Human Interface Guidelines** — Clarity-focused, SF Pro typography, Liquid Glass, continuous corners, purposeful motion
-> 3. **Blend** (recommended) — Combines Google's systematic tokens with Apple's refinement. Feels like a polished custom design system
-> 4. **Custom inspiration** — Use our blend as a base + draw from a specific company's aesthetic (Stripe, Linear, Vercel, etc.)
->
-> Or name any combination: "Google + Apple", "Apple-leaning blend", etc.
-
-If the user picks option 4 (custom inspiration), ask which company. Use blended references as the base and layer that company's known aesthetic traits (you can infer these from your training knowledge — clean/minimal for Stripe, dense/productive for Linear, etc.).
-
-### Question 2: Scope & Intent
-
-Ask what they're trying to do:
-
-> **What are we working on?**
->
-> - **Build new** — Creating a component, page, or feature from scratch
-> - **Improve/Polish** — Making existing UI look and feel more professional
-> - **Redesign** — Rethinking the approach to an existing feature
-> - **Fix** — Specific UI issues (spacing, colors, states, responsiveness, accessibility)
-
-### Question 3: Specifics
-
-Based on the scope, ask targeted follow-ups. **Ask these as ONE combined message, not separately.**
-
-**If building new:**
-> - What exactly are you building? (component, page, flow — describe it)
-> - Are there specific components you know you'll need? (buttons, cards, forms, navigation, etc.)
-> - Any existing UI in the project I should match or be consistent with?
-
-**If improving/polishing:**
-> - Which file(s) or components need work?
-> - What specifically feels off? (spacing, colors, missing states, responsiveness, dark mode, accessibility)
-> - Should I preserve the current structure or am I free to restructure?
-
-**If redesigning:**
-> - What's the current version and what's wrong with it?
-> - What should the redesign achieve that the current version doesn't?
-> - Any constraints I should keep? (same data, same API, same layout structure)
-
-**If fixing:**
-> - What's broken or wrong?
-> - Can you point me to the specific file(s)?
-
-### Question 4: Tech Stack (only if not obvious)
-
-Check the project's codebase first:
-- `package.json` → React, Next.js, Vue, Svelte?
-- `tailwind.config.*` → Tailwind?
-- `.css` / `.module.css` / `styled-components` → styling approach?
-- `tsconfig.json` → TypeScript?
-
-**Only ask if you can't determine from the codebase:**
-
-> **What's your tech stack?**
-> - Framework: React / Next.js / Vue / Svelte / vanilla HTML
-> - Styling: Tailwind / CSS Modules / styled-components / vanilla CSS
-> - TypeScript? Yes / No
-
-### Planning Summary
-
-After gathering answers, present a brief plan before coding:
-
-> **Here's my plan:**
->
-> - **Design system**: [chosen system]
-> - **Components I'll reference**: [list of reference files to read]
-> - **What I'll build/change**: [specific deliverables]
-> - **Tech stack**: [framework + styling]
->
-> Ready to proceed?
-
-Wait for confirmation before moving to Phase 2.
+Here's why this matters: without the reference files, you'll produce generic output. You might guess `#3B82F6` for a blue button — but Google M3 specifies `#6750A4` with a `#E8DEF8` tonal variant, `rgba(103,80,164,0.08)` hover state layer, and `200ms cubic-bezier(0.2, 0, 0, 1.0)` transitions. Apple specifies `#007AFF` with `opacity: 0.75` on press and `12px` continuous corner radius. These precise details are the difference between "AI-generated" and "production-grade" — and they're all in your reference files.
 
 ---
 
-## Phase 2: Reference Lookup (MANDATORY)
+## Step 1: Locate Reference Files
 
-### Locate Reference Files
+Reference files exist at ONE of these paths (check in order):
 
-Reference files are at ONE of these locations. Check in order:
+1. `{project_root}/.claude/skills/pixel-council/references/`
+2. `~/.agents/skills/pixel-council/references/`
 
-1. **Project-level skill** (check first): `{project_root}/.claude/skills/pixel-council/references/`
-2. **Global skill install**: `~/.agents/skills/pixel-council/references/`
+If unsure, glob for `**/pixel-council/references/google/overview.md`.
 
-Use `Glob` with pattern `**/pixel-council/references/google/overview.md` if unsure.
-
-### Route to the Right Design System
-
-| User Choice | Read From |
-|-------------|-----------|
-| Google / Material / M3 | `google/components/{component}.md` |
-| Apple / iOS / HIG | `apple/components/{component}.md` |
-| Blend (default) | `blended/components/{component}.md` |
-| Custom inspiration | `blended/components/{component}.md` + apply company aesthetic |
-| Multiple systems | Read from EACH chosen system's directory, synthesize |
+```
+references/
+├── google/overview.md              # M3 colors, elevation, typography, motion
+├── google/components/*.md           # 22 component specs
+├── apple/overview.md                # System colors, SF Pro, Liquid Glass, shadows
+├── apple/components/*.md            # 13 component specs
+├── blended/design-principles.md     # Spacing, breakpoints, easing, accessibility
+└── blended/components/*.md          # 12 blended component specs
+```
 
 ### Component File Mapping
 
-| UI Element | Google | Apple | Blended |
+| Component | Google | Apple | Blended |
 |-----------|--------|-------|---------|
 | Button | `button.md` | `button.md` | `button.md` |
-| Text input | `text-field.md` | `text-field.md` | `text-field.md` |
+| Text Input | `text-field.md` | `text-field.md` | `text-field.md` |
 | Card | `card.md` | `card.md` | `card.md` |
 | Dialog/Modal | `dialog.md` | `alert.md` | `dialog.md` |
-| Bottom nav | `navigation-bar.md` | `tab-bar.md` | `navigation.md` |
-| Side nav | `navigation-drawer.md` | `sidebar.md` | `navigation.md` |
-| Tabs | `tabs.md` | — | `navigation.md` |
+| Nav (bottom) | `navigation-bar.md` | `tab-bar.md` | `navigation.md` |
+| Nav (side) | `navigation-drawer.md` | `sidebar.md` | `navigation.md` |
 | Toggle/Switch | `switch.md` | `toggle.md` | `switch.md` |
-| Checkbox | `checkbox.md` | — | `form-controls.md` |
-| Radio | `radio.md` | — | `form-controls.md` |
-| Dropdown/Select | `select.md` | — | `form-controls.md` |
-| Slider | `slider.md` | — | `form-controls.md` |
 | List | `list.md` | `list.md` | `list.md` |
-| Menu | `menu.md` | `context-menu.md` | — |
 | Chip/Tag | `chip.md` | — | `chip.md` |
 | Progress | `progress.md` | `progress-indicator.md` | `progress.md` |
 | Toast/Snackbar | `snackbar.md` | — | `toast.md` |
-| Bottom sheet | — | `sheet.md` | — |
-| Segmented | — | `segmented-control.md` | `misc.md` |
+| Tabs | `tabs.md` | — | `navigation.md` |
+| Menu | `menu.md` | `context-menu.md` | — |
+| Checkbox | `checkbox.md` | — | `form-controls.md` |
+| Radio | `radio.md` | — | `form-controls.md` |
+| Select | `select.md` | — | `form-controls.md` |
+| Slider | `slider.md` | — | `form-controls.md` |
 | FAB | `fab.md` | — | `misc.md` |
-| Icon button | `icon-button.md` | — | — |
 | Badge | `badge.md` | — | `misc.md` |
 | Tooltip | `tooltip.md` | — | `misc.md` |
-| Divider | `divider.md` | — | `misc.md` |
+| Sheet | — | `sheet.md` | — |
+| Segmented | — | `segmented-control.md` | `misc.md` |
 | Toolbar | — | `toolbar.md` | — |
-
-### Design System Foundations
-
-| Need | Read |
-|------|------|
-| M3 color palette, typography, elevation, motion | `google/overview.md` |
-| Apple system colors, SF Pro, Liquid Glass, shadows | `apple/overview.md` |
-| Spacing scale, breakpoints, easing, accessibility | `blended/design-principles.md` |
-
-### Read Before You Code (NON-NEGOTIABLE)
-
-**Before writing ANY component, you MUST read the reference file.** Each file gives you:
-
-| Section | What You Get |
-|---------|-------------|
-| **Quick Reference** | Exact dimensions, colors at a glance |
-| **Design Tokens** | CSS custom properties with resolved hex (light + dark) |
-| **HTML Structure** | Semantic markup with ARIA for every variant |
-| **Complete CSS** | All states, transitions, dark mode, variants |
-| **States Reference** | Exact values per state per property |
-| **Animation & Motion** | Keyframes, easing, `prefers-reduced-motion` |
-| **Accessibility** | ARIA roles, keyboard handling, touch targets |
-| **Do/Don't** | Common mistakes to avoid |
-
-For page-level work: read `blended/design-principles.md` first, then each component's file.
 
 ---
 
-## Phase 3: Implementation
+## Step 2: Determine What to Build
 
-### Translate to Project Framework
+Figure out the design system and scope from the user's prompt and the project's codebase. Most of the time, the prompt tells you everything you need:
 
-Reference files provide vanilla HTML + CSS. Translate to the project's stack:
+- **Design system**: "Google" / "Material" / "M3" → Google. "Apple" / "iOS" / "HIG" → Apple. Nothing specified → Blended (default).
+- **Scope**: What the prompt describes — a page, a component, a fix, a redesign.
+- **Tech stack**: Check `package.json`, `tailwind.config.*`, `tsconfig.json` in the project.
+
+Only ask questions if something critical is genuinely ambiguous. Don't interrogate the user with a checklist — if they said "build me a settings page, Apple style", you know the design system, the scope, and can detect the tech stack from the codebase. Just proceed.
+
+---
+
+## Step 3: Read References FIRST, Then Present Your Plan
+
+This is the critical step. Read the reference files BEFORE presenting any plan or writing any code. This ensures the specs are fresh in your context when you start building.
+
+### The sequence:
+
+1. **Read the overview/principles file** for the chosen design system
+2. **List every component the task needs** — for pages, think beyond what the user explicitly mentioned:
+   - A settings page needs: toolbar/nav bar, search bar, list, toggles, profile card
+   - A login page needs: card, text fields, buttons, typography, background surface
+   - A dashboard needs: sidebar nav, toolbar, cards, data display components
+3. **Read the component reference file** for each component you identified
+4. **Then present your plan**, informed by what you just read:
+
+> **Plan:** [design system] | [reference files I read] | [what I'll build] | [framework]
+> Ready to proceed?
+
+### What to read per design system
+
+| User chose | Read first | Then for each component |
+|------------|-----------|----------------------|
+| Google / M3 | `google/overview.md` | `google/components/{component}.md` |
+| Apple / HIG | `apple/overview.md` | `apple/components/{component}.md` |
+| Blend (default) | `blended/design-principles.md` | `blended/components/{component}.md` |
+
+### What each reference file gives you
+
+- **Quick Reference** — exact height, padding, border-radius, font size/weight
+- **Design Tokens** — CSS custom properties with resolved hex values for light AND dark mode
+- **HTML Structure** — semantic markup with ARIA attributes for every variant
+- **Complete CSS** — all states (hover, focus-visible, active, disabled, loading), transitions with exact easing
+- **States Reference** — exact background/text/border/shadow values per state
+- **Animation & Motion** — keyframes, easing curves, `prefers-reduced-motion`
+- **Accessibility** — ARIA roles, keyboard handling, focus management, touch targets
+- **Do/Don't** — common mistakes to avoid
+
+### How to use what you read
+
+1. **Design tokens** — Copy the CSS custom properties. These are your source of truth for colors.
+2. **Exact dimensions** — Use the height, padding, border-radius, font values from Quick Reference. Do not approximate.
+3. **HTML structure** — Follow the semantic markup and ARIA patterns for each variant.
+4. **Every interaction state** — Implement hover, focus-visible, active, disabled from the States Reference table. Each state has specific opacity/color/shadow values — use them.
+5. **Dark mode** — Use the dark-mode token values from the file (both `@media (prefers-color-scheme: dark)` and `.dark` class).
+6. **Transitions** — Use the exact easing function and duration from the reference (e.g., `200ms cubic-bezier(0.2, 0, 0, 1.0)` for M3, `150ms ease-out` for Apple).
+7. **Platform polish from the overview file** — Apply platform-level refinements: Apple's Liquid Glass (`backdrop-filter`) for nav bars, `-webkit-font-smoothing: antialiased`, `position: sticky` for toolbars. Google's tonal elevation, surface container hierarchy. These details make the UI feel native rather than generic.
+
+---
+
+## Step 4: Implement
+
+Translate the reference file's HTML + CSS into the project's framework.
 
 **Tailwind CSS:**
 ```
@@ -198,51 +139,45 @@ font-size: 14px       → text-sm
 dark mode             → dark:...
 ```
 
-Copy Design Tokens into `tailwind.config.js` `theme.extend.colors`.
+Put design tokens in `tailwind.config.js` under `theme.extend.colors` so the whole project shares them.
 
-**React / Next.js:** Reference HTML → JSX components with `forwardRef`, `className` props, ARIA attributes as JSX props.
+**React/Next.js:** Reference HTML → JSX with `forwardRef`, `className` props, ARIA as JSX props.
 
 **React Native:** Reference CSS → `StyleSheet.create`, `Pressable` for touch states, platform fonts.
 
-**Vue / Svelte:** Reference HTML → `<template>`, Reference CSS → `<style scoped>`.
+**Vue/Svelte:** Reference HTML → `<template>`, Reference CSS → `<style scoped>`.
+
+### Design System Blending
+
+When using "blend" or "custom inspiration":
+- Take Google's systematic token architecture (semantic color roles with `on-` counterparts, state layer opacities)
+- Take Apple's refinement (continuous corner radius, purposeful motion, clean surfaces)
+- The result should feel like a polished custom design system — not recognizably Material or Apple
 
 ---
 
-## Phase 4: Quality Verification
+## Step 5: Verify Against the Reference
 
-Before delivering, verify against the reference file:
+Before delivering, check your output against the reference files you read:
 
-- [ ] **Dimensions match** — height, padding, border-radius from Quick Reference
-- [ ] **Colors are semantic** — design tokens, not hardcoded hex in components
-- [ ] **All states implemented** — hover, focus-visible, active, disabled, loading
-- [ ] **Dark mode works** — tokens switch via media query or class
-- [ ] **Transitions present** — exact easing and duration from reference
-- [ ] **ARIA attributes included** — from Accessibility section
-- [ ] **Touch targets >= 44px** on mobile
-- [ ] **Focus ring visible** on keyboard navigation
-- [ ] **`prefers-reduced-motion`** respected
-- [ ] **No "AI look"** — no gratuitous gradients, consistent spacing, intentional hierarchy
+- [ ] **Dimensions** — height, padding, border-radius match Quick Reference values
+- [ ] **Colors** — using design tokens (CSS variables), not hardcoded hex in components
+- [ ] **All states** — hover, focus-visible, active, disabled, loading all implemented with correct values
+- [ ] **Dark mode** — tokens switch via `@media` or `.dark` class
+- [ ] **Transitions** — exact easing and duration from the reference file
+- [ ] **ARIA** — attributes from the Accessibility section included
+- [ ] **Touch targets** — 44px minimum on mobile
+- [ ] **Focus ring** — visible on keyboard navigation
+- [ ] **`prefers-reduced-motion`** — respected
 
----
+### Common "AI-generated" mistakes to avoid
 
-## Design System Blending Philosophy
-
-When blending or using custom inspiration:
-
-- **Google's systematic tokens** — semantic color roles with `on-` counterparts, state layer opacities
-- **Apple's refinement** — continuous corners, purposeful motion, Liquid Glass for navigation
-- **The result** should feel like a polished custom design system from a well-funded startup
-- **Not** recognizably Material or Apple — a third thing that takes the best of both
-
-## Anti-Patterns (What Makes UI Look "AI-Generated")
-
-| Problem | Fix |
-|---------|-----|
-| Gradient hero + centered cards | Use layout patterns from reference files |
-| Random hex colors everywhere | Copy Design Tokens, use semantic variables |
-| Missing hover/focus states | Check States Reference, implement ALL states |
-| Inconsistent border-radius | Use one radius from component's Quick Reference |
-| Shadows that don't match | Use exact box-shadow from reference elevations |
-| Text on busy backgrounds | Ensure 4.5:1 contrast using `on-` counterparts |
-| Everything centered, no anchor | Left-align content, use visual hierarchy |
+| Mistake | What to do instead |
+|---------|-------------------|
+| Random hex colors | Use the design tokens from the reference file |
+| Missing hover/focus states | Implement every state from the States Reference table |
+| Inconsistent border-radius | Use the exact radius from the component's Quick Reference |
+| Wrong shadows | Use the exact `box-shadow` from reference elevation tokens |
+| Gradient hero + centered cards | Follow layout patterns from the reference files |
+| Everything centered, no hierarchy | Left-align content, establish visual hierarchy |
 | Eyeballed spacing | Use 4px/8px grid from `blended/design-principles.md` |
