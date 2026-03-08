@@ -230,6 +230,17 @@ metadata:
 .dark .apple-alert__action:active { background: rgba(255, 255, 255, 0.08); }
 ```
 
+## States Reference
+
+| State | Default Action | Cancel Action | Destructive | Scrim | Cursor |
+|-------|---------------|---------------|-------------|-------|--------|
+| Default | tint color, 400 weight | tint color, 400 weight | red, 400 weight | 40% black | pointer |
+| Default (bold) | tint color, 600 weight | — | — | — | pointer |
+| Hover | subtle bg fill | subtle bg fill | subtle bg fill | — | pointer |
+| Focus | 4px blue ring (inset) | 4px blue ring (inset) | 4px blue ring (inset) | — | pointer |
+| Active | 5% black bg (light) / 8% white bg (dark) | same | same | — | pointer |
+| Disabled | opacity 0.3 | — | opacity 0.3 | — | not-allowed |
+
 ## Animation & Motion
 
 ```css

@@ -277,6 +277,14 @@ metadata:
   outline: 4px solid rgba(0, 122, 255, 0.6);
   outline-offset: 1px;
 }
+@media (prefers-color-scheme: dark) {
+  .apple-sidebar__item:focus-visible {
+    outline-color: rgba(10, 132, 255, 0.6);
+  }
+}
+.dark .apple-sidebar__item:focus-visible {
+  outline-color: rgba(10, 132, 255, 0.6);
+}
 
 /* Active / pressed */
 .apple-sidebar__item:active:not(.apple-sidebar__item--active) {

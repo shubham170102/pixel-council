@@ -222,6 +222,7 @@ metadata:
 }
 .dark .apple-text-field__icon { color: rgba(235,235,245,0.6); }
 .dark .apple-text-field__helper { color: rgba(235,235,245,0.6); }
+.dark .apple-text-field__clear { background: rgba(235,235,245,0.3); }
 .dark .apple-text-field:focus-within .apple-text-field__container {
   box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.3);
 }

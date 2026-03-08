@@ -56,6 +56,15 @@ metadata:
 }
 ```
 
+## Variants
+
+| Variant | Description |
+|---------|-------------|
+| Default | Toggle with label to the right |
+| Label-left | Settings-style with label on left, toggle on right |
+| With description | Label + secondary description text, toggle on right |
+| Disabled | Reduced opacity (0.4), non-interactive |
+
 ## HTML Structure
 
 ```html

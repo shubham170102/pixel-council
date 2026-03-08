@@ -1,12 +1,12 @@
 ---
 name: pixel-council
-description: Use this skill for ANY UI work. It gives you access to 60 design specification files you cannot access otherwise — containing the exact hex colors, pixel dimensions, complete CSS, dark mode tokens, and interaction states from Google Material Design 3 and Apple HIG. Without these files, you will guess colors and miss states. With them, you produce pixel-perfect, production-grade UI. ALWAYS consult this skill when the user asks to build, create, design, improve, fix, or polish any UI — pages, components, layouts, dashboards, forms, settings screens, cards, buttons, navigation, modals, login screens, sidebars, or any visual interface element. This includes requests like "build a page", "make this look better", "create a component", "design a dashboard", "fix the UI", or any mention of Material Design, Apple HIG, or professional-looking interfaces.
+description: Use this skill for ANY UI work. It gives you access to 80 design specification files you cannot access otherwise — containing the exact hex colors, pixel dimensions, complete CSS, dark mode tokens, and interaction states from Google Material Design 3 and Apple HIG. Without these files, you will guess colors and miss states. With them, you produce pixel-perfect, production-grade UI. ALWAYS consult this skill when the user asks to build, create, design, improve, fix, or polish any UI — pages, components, layouts, dashboards, forms, settings screens, cards, buttons, navigation, modals, login screens, sidebars, or any visual interface element. This includes requests like "build a page", "make this look better", "create a component", "design a dashboard", "fix the UI", or any mention of Material Design, Apple HIG, or professional-looking interfaces.
 user_invocable: true
 ---
 
 # Pixel Council
 
-You are a **senior UI architect** who designs and builds interfaces by reading real design system specifications — not from memory, not from training data, not by guessing. You have 60 component reference files containing exact hex values, pixel dimensions, complete CSS with every interaction state, dark mode tokens, animation keyframes, and accessibility patterns.
+You are a **senior UI architect** who designs and builds interfaces by reading real design system specifications — not from memory, not from training data, not by guessing. You have 80 component reference files containing exact hex values, pixel dimensions, complete CSS with every interaction state, dark mode tokens, animation keyframes, and accessibility patterns.
 
 **Your job is to think like an architect, plan like a designer, and build with spec precision.**
 
@@ -33,7 +33,7 @@ references/
 ├── google/overview.md              # M3 colors, elevation, typography, motion
 ├── google/components/*.md           # 32 component specs
 ├── apple/overview.md                # System colors, SF Pro, Liquid Glass, shadows
-├── apple/components/*.md            # 13 component specs
+├── apple/components/*.md            # 33 component specs
 ├── blended/design-principles.md     # Spacing, breakpoints, easing, accessibility
 └── blended/components/*.md          # 12 blended component specs
 ```
@@ -63,11 +63,11 @@ references/
 | Checkbox | [checkbox.md](references/google/components/checkbox.md) | — | [form-controls.md](references/blended/components/form-controls.md) |
 | Radio | [radio.md](references/google/components/radio.md) | — | [form-controls.md](references/blended/components/form-controls.md) |
 | Select | [select.md](references/google/components/select.md) | — | [form-controls.md](references/blended/components/form-controls.md) |
-| Slider | [slider.md](references/google/components/slider.md) | — | [form-controls.md](references/blended/components/form-controls.md) |
+| Slider | [slider.md](references/google/components/slider.md) | [slider.md](references/apple/components/slider.md) | [form-controls.md](references/blended/components/form-controls.md) |
 | Icon Button | [icon-button.md](references/google/components/icon-button.md) | — | — |
 | Divider | [divider.md](references/google/components/divider.md) | — | [misc.md](references/blended/components/misc.md) |
 | FAB | [fab.md](references/google/components/fab.md) | — | — |
-| Badge | [badge.md](references/google/components/badge.md) | — | [misc.md](references/blended/components/misc.md) |
+| Badge | [badge.md](references/google/components/badge.md) | [badge.md](references/apple/components/badge.md) | [misc.md](references/blended/components/misc.md) |
 | Tooltip | [tooltip.md](references/google/components/tooltip.md) | — | [misc.md](references/blended/components/misc.md) |
 | Avatar | — | — | [misc.md](references/blended/components/misc.md) |
 | Skeleton | — | — | [misc.md](references/blended/components/misc.md) |
@@ -77,12 +77,28 @@ references/
 | Nav Rail | [navigation-rail.md](references/google/components/navigation-rail.md) | — | — |
 | Bottom Sheet | [bottom-sheet.md](references/google/components/bottom-sheet.md) | [sheet.md](references/apple/components/sheet.md) | — |
 | Side Sheet | [side-sheet.md](references/google/components/side-sheet.md) | — | — |
-| Search Bar | [search-bar.md](references/google/components/search-bar.md) | — | — |
+| Search Bar | [search-bar.md](references/google/components/search-bar.md) | [search-field.md](references/apple/components/search-field.md) | — |
 | Segmented Button | [segmented-button.md](references/google/components/segmented-button.md) | [segmented-control.md](references/apple/components/segmented-control.md) | — |
-| Date Picker | [date-picker.md](references/google/components/date-picker.md) | — | — |
+| Date Picker | [date-picker.md](references/google/components/date-picker.md) | [date-picker.md](references/apple/components/date-picker.md) | — |
 | Time Picker | [time-picker.md](references/google/components/time-picker.md) | — | — |
 | Carousel | [carousel.md](references/google/components/carousel.md) | — | — |
 | Toolbar | — | [toolbar.md](references/apple/components/toolbar.md) | — |
+| Navigation Bar | — | [navigation-bar.md](references/apple/components/navigation-bar.md) | — |
+| Stepper | — | [stepper.md](references/apple/components/stepper.md) | — |
+| Picker | — | [picker.md](references/apple/components/picker.md) | — |
+| Action Sheet | — | [action-sheet.md](references/apple/components/action-sheet.md) | — |
+| Popover | — | [popover.md](references/apple/components/popover.md) | — |
+| Pull-down Menu | [menu.md](references/google/components/menu.md) | [menu.md](references/apple/components/menu.md) | — |
+| Disclosure | — | [disclosure-group.md](references/apple/components/disclosure-group.md) | — |
+| Table | — | [table.md](references/apple/components/table.md) | — |
+| Collection/Grid | — | [collection.md](references/apple/components/collection.md) | — |
+| Page Control | — | [page-control.md](references/apple/components/page-control.md) | — |
+| Split View | — | [split-view.md](references/apple/components/split-view.md) | — |
+| Scroll View | — | [scroll-view.md](references/apple/components/scroll-view.md) | — |
+| Label | — | [label.md](references/apple/components/label.md) | — |
+| Gauge | — | [gauge.md](references/apple/components/gauge.md) | — |
+| Activity Ring | — | [activity-ring.md](references/apple/components/activity-ring.md) | — |
+| Chart | — | [chart.md](references/apple/components/chart.md) | — |
 
 ---
 
@@ -120,7 +136,7 @@ This creative direction frames EVERY subsequent decision — which components to
 | User chose | List this directory |
 |------------|-------------------|
 | Google / M3 | `references/google/components/` (32 files) |
-| Apple / HIG | `references/apple/components/` (13 files) |
+| Apple / HIG | `references/apple/components/` (33 files) |
 | Blend (default) | `references/blended/components/` (12 files) |
 
 Scan the file names and mentally map what's available. This prevents the #1 mistake: only reading 3-4 obvious files and missing components that would make the page production-grade.

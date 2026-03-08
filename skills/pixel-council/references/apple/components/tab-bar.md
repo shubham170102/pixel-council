@@ -206,6 +206,14 @@ metadata:
   outline-offset: 1px;
   border-radius: 4px;
 }
+@media (prefers-color-scheme: dark) {
+  .apple-tab-bar__tab:focus-visible {
+    outline-color: rgba(10, 132, 255, 0.6);
+  }
+}
+.dark .apple-tab-bar__tab:focus-visible {
+  outline-color: rgba(10, 132, 255, 0.6);
+}
 
 /* Active / pressed */
 .apple-tab-bar__tab:active {

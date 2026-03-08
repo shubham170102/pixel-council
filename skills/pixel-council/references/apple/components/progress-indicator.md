@@ -166,6 +166,17 @@ metadata:
 .apple-progress__spinner-segments line:nth-child(12) { opacity: 0.08; }
 ```
 
+## States Reference
+
+| State | Bar Track | Bar Fill | Spinner | Opacity |
+|-------|-----------|----------|---------|---------|
+| Determinate (0%) | full track visible | no fill | — | 1 |
+| Determinate (partial) | visible behind fill | fills left-to-right | — | 1 |
+| Determinate (100%) | hidden behind fill | full width | — | 1 |
+| Indeterminate | full track | 40% width, animating | — | 1 |
+| Spinner (active) | — | — | rotating, 12 segments | 1 |
+| Reduced motion | full track | full width, 50% opacity | static, 60% opacity | 0.5-0.6 |
+
 ## Animation & Motion
 
 ```css

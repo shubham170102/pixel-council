@@ -206,6 +206,20 @@ metadata:
 .dark .apple-sheet__done { color: #0A84FF; }
 ```
 
+## States Reference
+
+| State | Sheet Position | Scrim | Grabber | Cancel/Done | Cursor |
+|-------|---------------|-------|---------|-------------|--------|
+| Closed | offscreen (100% Y) | hidden | — | — | — |
+| Medium detent | 50vh | visible, 40% | visible | tint color | pointer |
+| Large detent | 95vh | visible, 40% | visible | tint color | pointer |
+| Transitioning | animating | fading | visible | tint color | — |
+| Grabber hover | — | — | cursor: grab | — | grab |
+| Grabber active | dragging | opacity changes | cursor: grabbing | — | grabbing |
+| Cancel/Done hover | — | — | — | subtle bg fill | pointer |
+| Cancel/Done focus | — | — | — | 4px blue ring | pointer |
+| Cancel/Done active | — | — | — | opacity 0.5 | pointer |
+
 ## Animation & Motion
 
 ```css
