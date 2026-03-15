@@ -119,7 +119,7 @@ Only ask questions if something critical is genuinely ambiguous. If they said "b
 
 **This is the most important step.** Do NOT skip to coding. Think like a senior UI architect first.
 
-### 3-Pre. Design Intent (30 seconds of creative direction)
+### 3.1 Design Intent (30 seconds of creative direction)
 
 Before touching ANY component files, answer these four questions in your head:
 
@@ -130,7 +130,7 @@ Before touching ANY component files, answer these four questions in your head:
 
 This creative direction frames EVERY subsequent decision — which components to include, which variants to choose, how to compose the layout. Without it, you'll produce technically correct but soulless output.
 
-### 3A. Survey All Available Components
+### 3.2 Survey All Available Components
 
 **Actually run `Glob` or `ls` on the components directory** — don't just scan the mapping table. The mapping table is a quick reference, but the actual directory may contain files you'd miss otherwise. Seeing real file names triggers associations ("oh, there's a search-bar — this page needs search") that you won't get from a mental checklist:
 
@@ -142,7 +142,7 @@ This creative direction frames EVERY subsequent decision — which components to
 
 Scan the file names and mentally map what's available. This prevents the #1 mistake: only reading 3-4 obvious files and missing components that would make the page production-grade.
 
-### 3B. Map User Intent to a FULL Component Set
+### 3.3 Map User Intent to a FULL Component Set
 
 For page-level requests, think **expansively** about what components the page needs. Always include more than what was explicitly asked for:
 
@@ -156,7 +156,7 @@ For page-level requests, think **expansively** about what components the page ne
 
 **Target: 8-15 component files per page.** If you're reading fewer than 8 files for a full page, you're not thinking broadly enough.
 
-### 3C. Read the Overview FIRST, Then ALL Component Files
+### 3.4 Read the Overview FIRST, Then ALL Component Files
 
 Read in this order:
 
@@ -174,7 +174,7 @@ Read in this order:
 | Apple / HIG     | [apple/overview.md](references/apple/overview.md)                       | `apple/components/{component}.md` for ALL identified   |
 | Blend (default) | [blended/design-principles.md](references/blended/design-principles.md) | `blended/components/{component}.md` for ALL identified |
 
-### 3D. Choose Variants Intentionally
+### 3.5 Choose Variants Intentionally
 
 As you read each file, decide which variant fits the context. Don't default to the first one — think about emphasis, hierarchy, and contrast:
 
@@ -184,7 +184,7 @@ As you read each file, decide which variant fits the context. Don't default to t
 - **Inputs**: Outlined text-field for forms, Filled for dense layouts.
 - **Lists**: Two-line for settings, Three-line for messages, Single-line for menus.
 
-### 3E. Plan Composition and Visual Hierarchy
+### 3.6 Plan Composition and Visual Hierarchy
 
 Think about the PAGE, not just individual components:
 
@@ -194,7 +194,7 @@ Think about the PAGE, not just individual components:
 - **Spacing rhythm**: Use the design system's spacing grid (4px/8px for M3, 8pt grid for Apple). Consistent spacing separates production-grade from amateur.
 - **Visual breathing room**: Not every section needs to be packed. Generous whitespace between major sections. Let the typography and components breathe.
 
-### 3F. Both Light AND Dark Themes (non-negotiable)
+### 3.7 Both Light AND Dark Themes (non-negotiable)
 
 Single-theme output is the #1 signal of AI-generated UI. Real products always ship both. Users on macOS/iOS/Android expect dark mode, and a light-only page feels like a prototype. This is why every reference file includes both light and dark token values — use them.
 
@@ -203,7 +203,7 @@ Single-theme output is the #1 signal of AI-generated UI. Real products always sh
 - Include a visible theme toggle in standalone pages (button or switch that toggles `.dark` on `<html>`)
 - Dark theme is NOT "invert the colors" — use the specific dark token values from each reference file
 
-### 3G. Present Your Architectural Plan
+### 3.8 Present Your Architectural Plan
 
 After reading and planning, present a detailed plan — NOT just "here's what I'll build":
 
@@ -281,43 +281,14 @@ Put design tokens in `tailwind.config.js` under `theme.extend.colors` so the who
 
 ### 4B. Composition Principles (Apply to Every Page)
 
-**Typography as a primary design tool:**
+**Read** [Composition Principles Reference](references/composition-principles.md) for detailed guidance on:
+- Typography hierarchy and scale usage
+- Color distribution with intention
+- Spatial composition and visual hierarchy
+- Purposeful motion and micro-interactions
+- Atmosphere and depth techniques
 
-- Use the design system's FULL type scale — not just one body size everywhere
-- Hero/display text should be noticeably larger than section headings, which are noticeably larger than body
-- Map at least 3-4 levels: Display → Headline → Title → Body → Label
-- Proper `line-height`, `letter-spacing`, and `font-weight` from the overview file — these details separate polished from generic
-
-**Color distribution with intention:**
-
-- Primary color appears on CTAs, key interactive elements, and selected states — NOT splashed on every surface
-- Surface colors create the spatial foundation (Surface, Surface-Container, Surface-Container-High from M3; or System Background tiers from Apple)
-- Use the `on-` counterpart tokens for text on colored backgrounds — never guess contrast
-- One bold accent + restrained surfaces >>> multiple competing colors
-
-**Spatial composition:**
-
-- Establish clear visual hierarchy through size contrast, spacing, and weight — not just color
-- Give major sections generous whitespace (48-64px vertical between page sections at minimum)
-- Group related items with tighter spacing (8-16px) to create visual clusters
-- Use the design system's spacing grid consistently (4px/8px increments for M3, 8pt grid for Apple)
-- Break monotony: not every section should be full-width centered content. Consider asymmetric layouts, offset grids, or mixed widths where they serve the content
-
-**Purposeful motion:**
-
-- **Page load**: Stagger the reveal of major sections using `animation-delay` (0ms, 50ms, 100ms, 150ms...) with fade-in + slight translate-Y. This creates a choreographed entrance, not an abrupt flash.
-- **Scroll interactions**: Elements that appear on scroll should animate in (use `IntersectionObserver` + CSS classes). Cards, features, stats — these feel alive when they enter smoothly.
-- **Micro-interactions**: Hover lifts on cards (subtle `translateY(-2px)` + shadow increase), button press feedback, toggle animations. Use the easing curves from the reference files.
-- **`prefers-reduced-motion`**: Always include. Remove `animation-delay`, `transform`, and `transition` under this media query.
-- Use the EXACT easing values from the reference: `cubic-bezier(0.2, 0, 0, 1.0)` for M3 standard, `cubic-bezier(0.05, 0.7, 0.1, 1)` for M3 decelerate, `ease-out` with specific durations for Apple.
-
-**Atmosphere and depth:**
-
-- Don't default to flat solid-color backgrounds. Use the design system's elevation system to create depth:
-  - M3: Tonal elevation (Surface → Surface-Container → Surface-Container-High) + `box-shadow` from elevation tokens
-  - Apple: Layered materials with `backdrop-filter: blur()` (Liquid Glass), layered shadows at multiple offsets
-- Consider subtle background treatments for hero/CTA sections — a gentle gradient using surface variants, or a pattern that fits the design system's character
-- Shadows should match the reference file exactly — not `shadow-md` guesses but the precise `box-shadow` values from the elevation tokens
+Apply these principles to every page — the difference between "technically correct" and "feels designed".
 
 ### 4C. Platform-Specific Polish
 
@@ -346,33 +317,13 @@ Put design tokens in `tailwind.config.js` under `theme.extend.colors` so the who
 
 ### 4D. Theme Implementation Pattern
 
-As planned in Step 3F, implement both themes using this pattern:
+**Read** [Theme Implementation Reference](references/theme-implementation.md) for:
+- Complete CSS pattern (light + dark modes)
+- HTML theme toggle markup
+- Smooth transition setup
+- Full verification checklist
 
-```css
-:root {
-  /* light tokens from reference files */
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* dark tokens */
-  }
-}
-.dark {
-  /* same dark tokens — enables manual toggle */
-}
-```
-
-```html
-<!-- Theme toggle for standalone pages -->
-<button
-  onclick="document.documentElement.classList.toggle('dark')"
-  aria-label="Toggle theme"
->
-  <!-- sun/moon icon -->
-</button>
-```
-
-Add `transition: background-color 200ms ease, color 200ms ease` on body and major containers for smooth switching.
+As planned in Step 3.7, implement both light and dark themes — this is non-negotiable for production-grade output.
 
 ---
 
@@ -393,13 +344,14 @@ Before delivering, run through BOTH checklists. The first ensures spec accuracy.
 
 ### Theme Verification (MANDATORY)
 
-- [ ] **Light theme renders correctly** — all token values produce correct colors, proper contrast
-- [ ] **Dark theme renders correctly** — dark tokens from reference files used (NOT inverted light theme)
-- [ ] **Both `@media (prefers-color-scheme: dark)` AND `.dark` class** work
-- [ ] **Theme toggle included** for standalone pages (button/switch that toggles `.dark` on `<html>`)
-- [ ] **Contrast ratios** — text meets WCAG AA (4.5:1 normal, 3:1 large) in BOTH themes
-- [ ] **Smooth theme transition** — `transition` on `background-color` and `color` for major containers
-- [ ] **No hardcoded colors** — every color references a CSS variable that switches with theme
+See [Theme Implementation Reference](references/theme-implementation.md) for complete theme verification checklist. Key items:
+- Light theme renders correctly with proper contrast
+- Dark theme uses reference file tokens (NOT inverted)
+- Both `@media (prefers-color-scheme: dark)` AND `.dark` class work
+- Theme toggle included for standalone pages
+- Contrast ratios meet WCAG AA standard in both themes
+- Smooth transitions on color changes
+- No hardcoded colors in components
 
 ### Composition Quality Checklist
 
