@@ -131,11 +131,11 @@ Check if my dark mode implementation matches the spec
 
 ### Choosing a Design System
 
-| What you say                             | What Claude uses                       |
-| ---------------------------------------- | -------------------------------------- |
-| Just describe the UI (default)           | **Blended** — best of Google + Apple   |
-| "Google style" / "Material style" / "M3" | Google Material Design 3 specs         |
-| "Apple style" / "iOS style" / "HIG"      | Apple Human Interface Guidelines specs |
+| What you say | What Claude uses |
+|---|---|
+| Just describe the UI (default) | **Blended** — best of Google + Apple |
+| "Google style" / "Material style" / "M3" | Google Material Design 3 specs |
+| "Apple style" / "iOS style" / "HIG" | Apple Human Interface Guidelines specs |
 
 ### What Happens Behind the Scenes
 
