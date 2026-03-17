@@ -35,35 +35,37 @@ Pixel Council gives Claude the actual design system specs — resolved hex value
 
 ## Installation
 
-### Option A: From the Marketplace (once approved)
+### Option A: Add marketplace and Install (Recommended)
 
-If pixel-council is listed in a Claude Code marketplace:
-
-```
+```bash
+/plugin marketplace add shubham170102/pixel-council
 /plugin install pixel-council
 ```
 
-### Option B: Local Plugin Install (works right now)
+Restart Claude Code (or open a new session), then run:
+
+```
+/plugin
+```
+
+You should see pixel-council listed.
+
+### Option B: Local Plugin Install
 
 Clone the repo and load it directly as a plugin:
 
 ```bash
 git clone https://github.com/shubham170102/pixel-council.git
-```
-
-Then start Claude Code with the plugin loaded:
-
-```bash
 claude --plugin-dir ./pixel-council
 ```
 
-To load it every session, add it to your shell profile:
+To load it every session, add to your shell profile:
 
 ```bash
 alias claude-ui="claude --plugin-dir /path/to/pixel-council"
 ```
 
-### Option C: Manual Skill Install (no plugin system)
+### Option C: Manual Skill Install
 
 If you prefer the traditional skill approach without the plugin system:
 
@@ -94,6 +96,8 @@ Restart Claude Code (or open a new session), then:
 ```
 
 You should see `pixel-council` listed. If installed as a plugin, skills are namespaced: `/pixel-council:pixel-council`.
+
+---
 
 ## Usage
 
@@ -147,6 +151,7 @@ Check if my dark mode implementation matches the spec
 Every component file is a **self-contained implementation guide**. Claude reads ONE file and gets everything needed — no guessing.
 
 Each file contains:
+
 - **Quick Reference** — scannable dimensions, colors at a glance
 - **Design Tokens** — copy-paste CSS custom properties with resolved hex (light + dark)
 - **HTML Structure** — semantic markup with ARIA attributes for every variant
