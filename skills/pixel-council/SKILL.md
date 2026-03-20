@@ -23,28 +23,23 @@ Here's why the reference files matter: without them, you'll produce generic outp
 - All context is already clear from the prompt + codebase scan
 - The user invoked with full context (e.g., "build a settings page, Apple HIG, React, mobile-first")
 
-Otherwise, **scan the project first** — check `package.json`, `tailwind.config.*`, `next.config.*`, and existing component files. Then ask **one question at a time**, waiting for each answer before asking the next. Prefer multiple-choice over open-ended.
+Otherwise, **first infer what you can** from the prompt and codebase:
 
-Ask only what's still unknown after the scan, in this order:
+- **Design system**: "Google" / "Material" / "M3" → Google. "Apple" / "iOS" / "HIG" → Apple. Nothing specified → Blended (default).
+- **Scope**: What the prompt describes — a page, a component, a fix, a redesign.
+- **Tech stack**: Check `package.json`, `tailwind.config.*`, `tsconfig.json` in the project.
 
-**Q1** (if design system not specified in prompt or codebase):
-> "Which design system should I use?
-> A) Google Material Design 3
-> B) Apple HIG
-> C) Blended — best of both (default)"
+**Then ask about what's still unclear** — one question at a time, waiting for each answer. Prefer multiple-choice where options are obvious, open-ended where context is needed.
 
-**Q2** (if framework not clear from `package.json`):
-> "What framework are you using?
-> A) React / Next.js  B) Vue  C) Svelte  D) Vanilla HTML  E) React Native"
+If the scope is vague (e.g. "build a dashboard", "design a page"), always clarify scope first:
+> "What should this dashboard show? Who uses it and what decisions do they make with it?"
 
-**Q3** (for page-level requests only):
-> "Who's the primary user and what device?
-> A) Mobile-first  B) Desktop  C) Both (responsive)"
+Other things worth clarifying before building:
+- Framework (if not in `package.json`)
+- Device / responsive target (for page-level work)
+- Existing brand colors or styles to match
 
-**Q4** (if no token files or Tailwind config found):
-> "Any existing styles or brand colors to match, or should I start fresh?"
-
-Wait for each answer before asking the next. Stop as soon as you have enough to proceed.
+Stop asking as soon as you have enough to proceed. If you can make a reasonable assumption, state it and move on instead of asking.
 
 ---
 
