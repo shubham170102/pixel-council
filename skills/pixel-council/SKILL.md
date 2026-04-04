@@ -103,13 +103,13 @@ references/
 
 ### Page-Level Reference Files (read these for ANY page-level request)
 
-| Reference | Apple | Purpose |
-|-----------|-------|---------|
-| Page Patterns | [page-patterns.md](references/apple/page-patterns.md) | Hero layouts, section composition, spacing rhythm, feature showcases — how apple.com structures pages |
-| Editorial Typography | [editorial-type.md](references/apple/editorial-type.md) | Marketing type scale (48-96px display headlines) extending beyond UI scale |
-| Icons / SF Symbols | [icons.md](references/apple/icons.md) | SF Symbol-style SVG icons for web — stroke specs, 20 ready-to-use SVGs, sizing rules |
+| Reference | Google | Apple | Purpose |
+|-----------|--------|-------|---------|
+| Page Patterns | [page-patterns.md](references/google/page-patterns.md) | [page-patterns.md](references/apple/page-patterns.md) | Hero layouts, section composition, spacing rhythm, feature showcases |
+| Editorial Typography | [editorial-type.md](references/google/editorial-type.md) | [editorial-type.md](references/apple/editorial-type.md) | Marketing type scale (48-96px display headlines) extending beyond UI scale |
+| Icons | [icons.md](references/google/icons.md) | [icons.md](references/apple/icons.md) | Icon system for web — Material Symbols (Google) / SF Symbols (Apple) |
 
-**For landing pages, marketing pages, or any full-page request**: read ALL THREE of these files BEFORE component files. They override generic composition guidance with Apple-specific patterns.
+**For landing pages, marketing pages, or any full-page request**: read ALL THREE page-level files for your locked design system BEFORE component files. They override generic composition guidance with system-specific patterns.
 
 ### Component File Mapping
 
@@ -255,10 +255,10 @@ If the user says "go ahead" / "your call" / "D" → default to **A** (closest na
 Read in this order:
 
 1. **Overview/principles file** — this gives you the design system's foundation: color roles, typography scale, elevation system, motion easing, platform-specific patterns
-2. **For page-level requests (Apple HIG)**, also read these BEFORE component files:
-   - [Page Patterns](references/apple/page-patterns.md) — Section composition, hero patterns, spacing rhythm
-   - [Editorial Typography](references/apple/editorial-type.md) — Marketing type scale (48-96px headlines)
-   - [Icons](references/apple/icons.md) — SF Symbol-style SVG icons for web (NEVER use emoji)
+2. **For page-level requests**, also read these BEFORE component files (for your locked system):
+   - **Apple**: [Page Patterns](references/apple/page-patterns.md), [Editorial Type](references/apple/editorial-type.md), [Icons](references/apple/icons.md)
+   - **Google**: [Page Patterns](references/google/page-patterns.md), [Editorial Type](references/google/editorial-type.md), [Icons](references/google/icons.md)
+   - These define section composition, marketing typography (48-96px headlines), and icon systems. NEVER use emoji — use SF Symbols (Apple) or Material Symbols (Google).
 3. **Every component file** you identified in 3B — not just a quick scan, but enough to note:
    - Which **variant** fits your context (e.g., Filled button for CTA, Outlined for secondary)
    - Key **dimensions** you'll use
@@ -268,7 +268,7 @@ Read in this order:
 
 | User chose      | Read first                                                              | Then read components                                   |
 | --------------- | ----------------------------------------------------------------------- | ------------------------------------------------------ |
-| Google / M3     | [google/overview.md](references/google/overview.md)                     | `google/components/{component}.md` for ALL identified  |
+| Google / M3     | [google/overview.md](references/google/overview.md) + page-level files  | `google/components/{component}.md` for ALL identified  |
 | Apple / HIG     | [apple/overview.md](references/apple/overview.md) + page-level files    | `apple/components/{component}.md` for ALL identified   |
 | Blend (default) | [blended/design-principles.md](references/blended/design-principles.md) | `blended/components/{component}.md` for ALL identified |
 
@@ -402,13 +402,24 @@ Put design tokens in `tailwind.config.js` under `theme.extend.colors` so the who
 - Purposeful motion and micro-interactions
 - Atmosphere and depth techniques
 
-**For landing pages and marketing pages (Apple HIG)**, the page-level reference files OVERRIDE generic composition guidance:
+**For landing pages and marketing pages**, the page-level reference files OVERRIDE generic composition guidance. Rules vary by system:
+
+**Apple HIG pages:**
 - **NO card grids for features** — use one-feature-per-viewport with imagery (see `page-patterns.md`)
 - **NO alternating section backgrounds** — use whitespace (120-200px gaps between sections)
 - **NO emoji icons** — use SF Symbol-style SVGs from `icons.md`
 - **Headlines use editorial scale** (48-96px display sizes from `editorial-type.md`), not UI scale (34px max)
 - **Sections need imagery** — product screenshots, illustrations, or full-bleed photos. A text-only page is not Apple.
 - **Eyebrow → Headline → Body → CTA** is the per-section hierarchy (never skip the eyebrow)
+
+**Google M3 pages:**
+- **Use M3 card variants for feature strips** — elevated or outlined cards with Material Symbols icons (NOT colored icon squares or emoji)
+- **USE tonal elevation for sections** — surface → surface-container alternation IS correct for M3 (unlike Apple). Keep it subtle.
+- **NO emoji icons** — use Material Symbols via Google Fonts CDN from `icons.md`
+- **Headlines use editorial scale** (45-88px display sizes from `editorial-type.md`), weight 400 (lighter than Apple's 700)
+- **12-column grid** for layout (NOT max-width-only containers)
+- **Overline → Display → Body → CTA** is the per-section hierarchy (Overline = M3's eyebrow)
+- **State layers** on all interactive elements (0.08 hover overlay via ::before, NOT background color change)
 
 Apply these principles to every page — the difference between "technically correct" and "feels designed".
 
