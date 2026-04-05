@@ -21,11 +21,36 @@ metadata:
 | Min touch target | 44x44px (when interactive) |
 | CSS prefix | `.apple-icon` |
 
+### Web-Safe Icon Libraries (Recommended)
+
+SF Symbols are licensed for Apple platforms only — NOT for web redistribution. For web projects, use these alternatives that match the SF Symbols aesthetic:
+
+| Library | Icons | License | CDN | Style Match |
+|---------|-------|---------|-----|-------------|
+| **Lucide** (recommended) | 1,400+ | MIT | `https://unpkg.com/lucide@latest` | Closest to SF Symbols — round strokes, 24x24, 2px weight |
+| **Phosphor Icons** | 9,000+ | MIT | `https://unpkg.com/@phosphor-icons/web@latest` | 6 weights, very versatile |
+| **Heroicons** | 300+ | MIT | `https://unpkg.com/heroicons@latest` | Tailwind team, clean outline style |
+| **Feather Icons** | 280+ | MIT | `https://unpkg.com/feather-icons@latest` | Minimal, 24x24, 2px stroke |
+
+**Loading Lucide (recommended approach):**
+```html
+<!-- Option 1: CDN script (auto-replaces <i> tags) -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<i data-lucide="check-circle"></i>
+<script>lucide.createIcons();</script>
+
+<!-- Option 2: Individual SVG fetch -->
+<img src="https://unpkg.com/lucide-static@latest/icons/check-circle.svg" alt="" width="24" height="24" />
+
+<!-- Option 3: Inline SVG (from icons.md library below) -->
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">...</svg>
+```
+
 ## Design Tokens
 
 ```css
 :root {
-  --apple-icon-primary: #000000;
+  --apple-icon-primary: #1D1D1F;
   --apple-icon-secondary: rgba(60, 60, 67, 0.6);
   --apple-icon-tertiary: rgba(60, 60, 67, 0.3);
   --apple-icon-tint: #007AFF;
@@ -39,7 +64,7 @@ metadata:
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --apple-icon-primary: #FFFFFF;
+    --apple-icon-primary: #F5F5F7;
     --apple-icon-secondary: rgba(235, 235, 245, 0.6);
     --apple-icon-tertiary: rgba(235, 235, 245, 0.3);
     --apple-icon-tint: #0A84FF;
@@ -49,7 +74,7 @@ metadata:
   }
 }
 .dark {
-  --apple-icon-primary: #FFFFFF;
+  --apple-icon-primary: #F5F5F7;
   --apple-icon-secondary: rgba(235, 235, 245, 0.6);
   --apple-icon-tertiary: rgba(235, 235, 245, 0.3);
   --apple-icon-tint: #0A84FF;
@@ -226,7 +251,7 @@ metadata:
 
 /* ---- Focus ---- */
 .apple-icon-button:focus-visible {
-  outline: 4px solid rgba(0, 122, 255, 0.6);
+  outline: 4px solid rgba(0, 122, 255, 0.4);
   outline-offset: 1px;
 }
 
@@ -241,14 +266,14 @@ metadata:
 /* ---- Dark Mode (CSS overrides) ---- */
 @media (prefers-color-scheme: dark) {
   .apple-icon-button:focus-visible {
-    outline-color: rgba(10, 132, 255, 0.6);
+    outline-color: rgba(10, 132, 255, 0.4);
   }
   .apple-icon-feature {
     background: rgba(120, 120, 128, 0.16);
   }
 }
 .dark .apple-icon-button:focus-visible {
-  outline-color: rgba(10, 132, 255, 0.6);
+  outline-color: rgba(10, 132, 255, 0.4);
 }
 .dark .apple-icon-feature {
   background: rgba(120, 120, 128, 0.16);
@@ -412,7 +437,7 @@ metadata:
 
 - **ARIA**: decorative icons use `aria-hidden="true"`; standalone meaningful icons use `role="img"` with `aria-label`
 - **Icon buttons**: `<button>` with `aria-label` describing the action, SVG gets `aria-hidden="true"`
-- **Focus ring**: 4px solid blue at 60% opacity, 1px offset on interactive icon containers
+- **Focus ring**: 4px solid blue at 40% opacity, 1px offset on interactive icon containers
 - **Touch target**: minimum 44x44px on all interactive icon elements (pad with min-width/min-height)
 - **Keyboard**: Tab to focus icon buttons, Enter/Space to activate
 - **Screen reader**: never expose raw SVG paths; always provide text alternative via `aria-label` or adjacent visible text
@@ -438,3 +463,5 @@ metadata:
 | Use outline style by default | Use filled variant unless in active/selected state |
 | Add `aria-hidden="true"` on decorative icons | Leave icons without accessible context for screen readers |
 | Provide `aria-label` on icon-only buttons | Assume the icon alone communicates meaning |
+| Use Lucide/Phosphor for web projects (MIT licensed) | Extract SF Symbols and redistribute on web (license violation) |
+| Use native Unicode emoji for decorative accents at 48px | Use Apple emoji PNGs from any CDN (copyrighted) |
