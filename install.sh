@@ -4,6 +4,25 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+MARKETPLACE="$SCRIPT_DIR/.claude-plugin/marketplace.json"
+
+# Auto-bump patch version and update file count in marketplace.json
+if [ -f "$MARKETPLACE" ]; then
+  REF_COUNT=$(find "$SCRIPT_DIR/skills/pixel-council/references" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+
+  # Bump patch version (1.1.0 → 1.1.1, etc.)
+  OLD_VER=$(grep -o '"version": "[^"]*"' "$MARKETPLACE" | head -1 | grep -o '[0-9]*\.[0-9]*\.[0-9]*')
+  if [ -n "$OLD_VER" ]; then
+    MAJOR=$(echo "$OLD_VER" | cut -d. -f1)
+    MINOR=$(echo "$OLD_VER" | cut -d. -f2)
+    PATCH=$(echo "$OLD_VER" | cut -d. -f3)
+    NEW_VER="$MAJOR.$MINOR.$((PATCH + 1))"
+    sed -i '' "s/\"version\": \"$OLD_VER\"/\"version\": \"$NEW_VER\"/" "$MARKETPLACE"
+  fi
+
+  # Update reference file count in description
+  sed -i '' "s/[0-9]* reference files/$REF_COUNT reference files/" "$MARKETPLACE"
+fi
 
 echo ""
 echo "  Pixel Council Installer"
