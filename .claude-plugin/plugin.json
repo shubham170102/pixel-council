@@ -1,6 +1,6 @@
 {
   "name": "pixel-council",
-  "description": "Build production-grade UI using real design system specifications from the world's top companies. Includes complete design tokens, interaction states, page composition patterns, icon systems, and editorial typography — so Claude builds like a senior designer, not a prompt guesser.",
+  "description": "Build production-grade UI using real design system specifications from Google Material Design 3, Apple HIG, and IBM Carbon. Includes complete design tokens (4 themes for Carbon: White/G10/G90/G100), interaction states, page composition patterns, icon systems (Material Symbols + SF Symbols + Carbon Icons), pictograms, AI surface tokens, and editorial typography. For Carbon, every component file embeds verbatim Storybook source code (React + Web Components) — output it as-is. So Claude builds like a senior designer, not a prompt guesser.",
   "author": {
     "name": "Blinkz",
     "email": "admin@blinkzai.org"

@@ -1,6 +1,6 @@
 ---
 name: pixel-council
-description: "Build, design, improve, or fix any UI using production-grade design tokens and specs from Google Material Design 3 and Apple HIG. Access 86 reference files with exact colors, dimensions, CSS, all interaction states (hover/focus/active/disabled), dark mode tokens, animations, page-level composition patterns, editorial typography, and icon systems (Material Symbols + SF Symbols). Trigger when user mentions: building UI, designing pages/components/forms/dashboards, Material Design, Apple HIG, or professional-looking interfaces. The specs prevent guessing colors and missing states — you produce pixel-perfect output with proper theming and composition."
+description: "Build, design, improve, or fix any UI using production-grade design tokens and specs from Google Material Design 3, Apple HIG, and IBM Carbon Design System. Access 129 reference files with exact colors, dimensions, CSS, all interaction states (hover/focus/active/disabled), 4 themes for Carbon (White/G10/G90/G100), animations, page-level composition patterns, editorial typography, AI surface tokens, and icon systems (Material Symbols + SF Symbols + Carbon Icons). For IBM Carbon, every component file embeds verbatim Storybook source code (React + Web Components) — output it as-is, do not paraphrase. Trigger when user mentions: building UI, designing pages/components/forms/dashboards, Material Design, Apple HIG, IBM Carbon, enterprise dashboards, AI interfaces, or professional-looking interfaces. The specs prevent guessing colors and missing states — you produce pixel-perfect output with proper theming and composition."
 user_invocable: true
 ---
 
@@ -26,7 +26,7 @@ Here's why the reference files matter: without them, you'll produce generic outp
 
 Otherwise, **first infer what you can** from the prompt and codebase:
 
-- **Design system**: "Google" / "Material" / "M3" → Google. "Apple" / "iOS" / "HIG" → Apple. Nothing specified → Blended (default).
+- **Design system**: "Google" / "Material" / "M3" → Google. "Apple" / "iOS" / "HIG" → Apple. "IBM" / "Carbon" / "Plex" / "enterprise dashboard" / "data table" / "AI app" / "chat interface" → IBM. Nothing specified → Blended (default).
 - **Scope**: What the prompt describes — a page, a component, a fix, a redesign.
 - **Tech stack**: Check `package.json`, `tailwind.config.*`, `tsconfig.json` in the project.
 - **Viewport**: See detection rules below.
@@ -91,6 +91,9 @@ references/
 ├── google/components/*.md           # 32 component specs
 ├── apple/overview.md                # System colors, SF Pro, Liquid Glass, shadows
 ├── apple/components/*.md            # 33 component specs
+├── ibm/overview.md                  # Carbon 4 themes (White/G10/G90/G100), IBM Plex, motion, 2x grid, sharp corners
+├── ibm/components/*.md              # 38 component specs (each embeds verbatim React + WC Storybook source)
+├── ibm/pictograms.md                # Editorial illustrations (Carbon-only — no Apple/Google equivalent)
 ├── blended/design-principles.md     # Spacing, breakpoints, easing, accessibility
 └── blended/components/*.md          # 12 blended component specs
 ```
@@ -99,15 +102,17 @@ references/
 
 - [Google M3 Overview](references/google/overview.md) — 34 colors, typography, elevation, motion
 - [Apple HIG Overview](references/apple/overview.md) — System colors, SF Pro, Liquid Glass, shadows
+- [IBM Carbon Overview](references/ibm/overview.md) — 4 themes (White/G10/G90/G100), IBM Plex, motion, 2x grid, AI tokens, sharp corners (border-radius: 0)
 - [Blended Design Principles](references/blended/design-principles.md) — Spacing, breakpoints, easing, accessibility
 
 ### Page-Level Reference Files (read these for ANY page-level request)
 
-| Reference | Google | Apple | Purpose |
-|-----------|--------|-------|---------|
-| Page Patterns | [page-patterns.md](references/google/page-patterns.md) | [page-patterns.md](references/apple/page-patterns.md) | Hero layouts, section composition, spacing rhythm, feature showcases |
-| Editorial Typography | [editorial-type.md](references/google/editorial-type.md) | [editorial-type.md](references/apple/editorial-type.md) | Marketing type scale (48-96px display headlines) extending beyond UI scale |
-| Icons | [icons.md](references/google/icons.md) | [icons.md](references/apple/icons.md) | Icon system for web — Material Symbols (Google) / SF Symbols (Apple) |
+| Reference | Google | Apple | IBM | Purpose |
+|-----------|--------|-------|-----|---------|
+| Page Patterns | [page-patterns.md](references/google/page-patterns.md) | [page-patterns.md](references/apple/page-patterns.md) | [page-patterns.md](references/ibm/page-patterns.md) | Hero layouts, section composition, spacing rhythm, feature showcases, UIShell + dashboard (IBM only) |
+| Editorial Typography | [editorial-type.md](references/google/editorial-type.md) | [editorial-type.md](references/apple/editorial-type.md) | [editorial-type.md](references/ibm/editorial-type.md) | Marketing type scale (48-96px display headlines) extending beyond UI scale |
+| Icons | [icons.md](references/google/icons.md) | [icons.md](references/apple/icons.md) | [icons.md](references/ibm/icons.md) | Icon system for web — Material Symbols / SF Symbols / Carbon Icons (Apache 2.0, web-redistributable) |
+| Pictograms | — | — | [pictograms.md](references/ibm/pictograms.md) | Editorial illustrations (64-128px) for marketing — Carbon-only |
 
 **For landing pages, marketing pages, or any full-page request**: read ALL THREE page-level files for your locked design system BEFORE component files. They override generic composition guidance with system-specific patterns.
 
@@ -115,59 +120,73 @@ references/
 
 > **Note:** This table shows all components across all three systems for discoverability. Once your design system is locked in Step 2, reference **only the column for your chosen system**. Other columns exist for awareness, not use.
 
-| Component           | Google                                                                    | Apple                                                                      | Blended                                                            |
-| ------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Button              | [button.md](references/google/components/button.md)                       | [button.md](references/apple/components/button.md)                         | [button.md](references/blended/components/button.md)               |
-| Text Input          | [text-field.md](references/google/components/text-field.md)               | [text-field.md](references/apple/components/text-field.md)                 | [text-field.md](references/blended/components/text-field.md)       |
-| Card                | [card.md](references/google/components/card.md)                           | [card.md](references/apple/components/card.md)                             | [card.md](references/blended/components/card.md)                   |
-| Dialog/Modal        | [dialog.md](references/google/components/dialog.md)                       | [alert.md](references/apple/components/alert.md)                           | [dialog.md](references/blended/components/dialog.md)               |
-| Nav (bottom)        | [navigation-bar.md](references/google/components/navigation-bar.md)       | [tab-bar.md](references/apple/components/tab-bar.md)                       | [navigation.md](references/blended/components/navigation.md)       |
-| Nav (side)          | [navigation-drawer.md](references/google/components/navigation-drawer.md) | [sidebar.md](references/apple/components/sidebar.md)                       | [navigation.md](references/blended/components/navigation.md)       |
-| Toggle/Switch       | [switch.md](references/google/components/switch.md)                       | [toggle.md](references/apple/components/toggle.md)                         | [switch.md](references/blended/components/switch.md)               |
-| List                | [list.md](references/google/components/list.md)                           | [list.md](references/apple/components/list.md)                             | [list.md](references/blended/components/list.md)                   |
-| Chip/Tag            | [chip.md](references/google/components/chip.md)                           | —                                                                          | [chip.md](references/blended/components/chip.md)                   |
-| Progress            | [progress.md](references/google/components/progress.md)                   | [progress-indicator.md](references/apple/components/progress-indicator.md) | [progress.md](references/blended/components/progress.md)           |
-| Toast/Snackbar      | [snackbar.md](references/google/components/snackbar.md)                   | —                                                                          | [toast.md](references/blended/components/toast.md)                 |
-| Tabs                | [tabs.md](references/google/components/tabs.md)                           | —                                                                          | [navigation.md](references/blended/components/navigation.md)       |
-| Menu / Context Menu | [menu.md](references/google/components/menu.md)                           | [context-menu.md](references/apple/components/context-menu.md)             | —                                                                  |
-| Checkbox            | [checkbox.md](references/google/components/checkbox.md)                   | —                                                                          | [form-controls.md](references/blended/components/form-controls.md) |
-| Radio               | [radio.md](references/google/components/radio.md)                         | —                                                                          | [form-controls.md](references/blended/components/form-controls.md) |
-| Select              | [select.md](references/google/components/select.md)                       | —                                                                          | [form-controls.md](references/blended/components/form-controls.md) |
-| Slider              | [slider.md](references/google/components/slider.md)                       | [slider.md](references/apple/components/slider.md)                         | [form-controls.md](references/blended/components/form-controls.md) |
-| Icon Button         | [icon-button.md](references/google/components/icon-button.md)             | —                                                                          | —                                                                  |
-| Divider             | [divider.md](references/google/components/divider.md)                     | —                                                                          | [misc.md](references/blended/components/misc.md)                   |
-| FAB                 | [fab.md](references/google/components/fab.md)                             | —                                                                          | —                                                                  |
-| Badge               | [badge.md](references/google/components/badge.md)                         | [badge.md](references/apple/components/badge.md)                           | [misc.md](references/blended/components/misc.md)                   |
-| Tooltip             | [tooltip.md](references/google/components/tooltip.md)                     | —                                                                          | [misc.md](references/blended/components/misc.md)                   |
-| Avatar              | —                                                                         | —                                                                          | [misc.md](references/blended/components/misc.md)                   |
-| Skeleton            | —                                                                         | —                                                                          | [misc.md](references/blended/components/misc.md)                   |
-| Empty State         | —                                                                         | —                                                                          | [misc.md](references/blended/components/misc.md)                   |
-| Top App Bar         | [top-app-bar.md](references/google/components/top-app-bar.md)             | [toolbar.md](references/apple/components/toolbar.md)                       | —                                                                  |
-| Bottom App Bar      | [bottom-app-bar.md](references/google/components/bottom-app-bar.md)       | —                                                                          | —                                                                  |
-| Nav Rail            | [navigation-rail.md](references/google/components/navigation-rail.md)     | —                                                                          | —                                                                  |
-| Bottom Sheet        | [bottom-sheet.md](references/google/components/bottom-sheet.md)           | [sheet.md](references/apple/components/sheet.md)                           | —                                                                  |
-| Side Sheet          | [side-sheet.md](references/google/components/side-sheet.md)               | —                                                                          | —                                                                  |
-| Search Bar          | [search-bar.md](references/google/components/search-bar.md)               | [search-field.md](references/apple/components/search-field.md)             | —                                                                  |
-| Segmented Button    | [segmented-button.md](references/google/components/segmented-button.md)   | [segmented-control.md](references/apple/components/segmented-control.md)   | —                                                                  |
-| Date Picker         | [date-picker.md](references/google/components/date-picker.md)             | [date-picker.md](references/apple/components/date-picker.md)               | —                                                                  |
-| Time Picker         | [time-picker.md](references/google/components/time-picker.md)             | —                                                                          | —                                                                  |
-| Carousel            | [carousel.md](references/google/components/carousel.md)                   | —                                                                          | —                                                                  |
-| Navigation Bar      | —                                                                         | [navigation-bar.md](references/apple/components/navigation-bar.md)         | —                                                                  |
-| Stepper             | —                                                                         | [stepper.md](references/apple/components/stepper.md)                       | —                                                                  |
-| Picker              | —                                                                         | [picker.md](references/apple/components/picker.md)                         | —                                                                  |
-| Action Sheet        | —                                                                         | [action-sheet.md](references/apple/components/action-sheet.md)             | —                                                                  |
-| Popover             | —                                                                         | [popover.md](references/apple/components/popover.md)                       | —                                                                  |
-| Pull-down Menu      | —                                                                         | [menu.md](references/apple/components/menu.md)                             | —                                                                  |
-| Disclosure          | —                                                                         | [disclosure-group.md](references/apple/components/disclosure-group.md)     | —                                                                  |
-| Table               | —                                                                         | [table.md](references/apple/components/table.md)                           | —                                                                  |
-| Collection/Grid     | —                                                                         | [collection.md](references/apple/components/collection.md)                 | —                                                                  |
-| Page Control        | —                                                                         | [page-control.md](references/apple/components/page-control.md)             | —                                                                  |
-| Split View          | —                                                                         | [split-view.md](references/apple/components/split-view.md)                 | —                                                                  |
-| Scroll View         | —                                                                         | [scroll-view.md](references/apple/components/scroll-view.md)               | —                                                                  |
-| Label               | —                                                                         | [label.md](references/apple/components/label.md)                           | —                                                                  |
-| Gauge               | —                                                                         | [gauge.md](references/apple/components/gauge.md)                           | —                                                                  |
-| Activity Ring       | —                                                                         | [activity-ring.md](references/apple/components/activity-ring.md)           | —                                                                  |
-| Chart               | —                                                                         | [chart.md](references/apple/components/chart.md)                           | —                                                                  |
+| Component           | Google                                                                    | Apple                                                                      | IBM                                                                                | Blended                                                            |
+| ------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Button              | [button.md](references/google/components/button.md)                       | [button.md](references/apple/components/button.md)                         | [button.md](references/ibm/components/button.md)                                   | [button.md](references/blended/components/button.md)               |
+| Text Input          | [text-field.md](references/google/components/text-field.md)               | [text-field.md](references/apple/components/text-field.md)                 | [text-input.md](references/ibm/components/text-input.md)                           | [text-field.md](references/blended/components/text-field.md)       |
+| Text Area           | —                                                                         | —                                                                          | [text-area.md](references/ibm/components/text-area.md)                             | —                                                                  |
+| Number Input        | —                                                                         | [stepper.md](references/apple/components/stepper.md)                       | [number-input.md](references/ibm/components/number-input.md)                       | —                                                                  |
+| Card / Tile         | [card.md](references/google/components/card.md)                           | [card.md](references/apple/components/card.md)                             | [tile.md](references/ibm/components/tile.md)                                       | [card.md](references/blended/components/card.md)                   |
+| Dialog/Modal        | [dialog.md](references/google/components/dialog.md)                       | [alert.md](references/apple/components/alert.md)                           | [modal.md](references/ibm/components/modal.md)                                     | [dialog.md](references/blended/components/dialog.md)               |
+| Nav (bottom)        | [navigation-bar.md](references/google/components/navigation-bar.md)       | [tab-bar.md](references/apple/components/tab-bar.md)                       | —                                                                                  | [navigation.md](references/blended/components/navigation.md)       |
+| Nav (side / shell)  | [navigation-drawer.md](references/google/components/navigation-drawer.md) | [sidebar.md](references/apple/components/sidebar.md)                       | [ui-shell.md](references/ibm/components/ui-shell.md)                               | [navigation.md](references/blended/components/navigation.md)       |
+| Toggle/Switch       | [switch.md](references/google/components/switch.md)                       | [toggle.md](references/apple/components/toggle.md)                         | [toggle.md](references/ibm/components/toggle.md)                                   | [switch.md](references/blended/components/switch.md)               |
+| List                | [list.md](references/google/components/list.md)                           | [list.md](references/apple/components/list.md)                             | [contained-list.md](references/ibm/components/contained-list.md)                   | [list.md](references/blended/components/list.md)                   |
+| Chip/Tag            | [chip.md](references/google/components/chip.md)                           | —                                                                          | [tag.md](references/ibm/components/tag.md)                                         | [chip.md](references/blended/components/chip.md)                   |
+| Progress            | [progress.md](references/google/components/progress.md)                   | [progress-indicator.md](references/apple/components/progress-indicator.md) | [progress-indicator.md](references/ibm/components/progress-indicator.md)           | [progress.md](references/blended/components/progress.md)           |
+| Toast / Notification| [snackbar.md](references/google/components/snackbar.md)                   | —                                                                          | [notification.md](references/ibm/components/notification.md)                       | [toast.md](references/blended/components/toast.md)                 |
+| Tabs                | [tabs.md](references/google/components/tabs.md)                           | —                                                                          | [tabs.md](references/ibm/components/tabs.md)                                       | [navigation.md](references/blended/components/navigation.md)       |
+| Menu / Overflow     | [menu.md](references/google/components/menu.md)                           | [context-menu.md](references/apple/components/context-menu.md)             | [overflow-menu.md](references/ibm/components/overflow-menu.md)                     | —                                                                  |
+| Checkbox            | [checkbox.md](references/google/components/checkbox.md)                   | —                                                                          | [checkbox.md](references/ibm/components/checkbox.md)                               | [form-controls.md](references/blended/components/form-controls.md) |
+| Radio               | [radio.md](references/google/components/radio.md)                         | —                                                                          | [radio-button.md](references/ibm/components/radio-button.md)                       | [form-controls.md](references/blended/components/form-controls.md) |
+| Select              | [select.md](references/google/components/select.md)                       | —                                                                          | [select.md](references/ibm/components/select.md)                                   | [form-controls.md](references/blended/components/form-controls.md) |
+| Dropdown            | —                                                                         | —                                                                          | [dropdown.md](references/ibm/components/dropdown.md)                               | —                                                                  |
+| ComboBox            | —                                                                         | —                                                                          | [combo-box.md](references/ibm/components/combo-box.md)                             | —                                                                  |
+| MultiSelect         | —                                                                         | —                                                                          | [multi-select.md](references/ibm/components/multi-select.md)                       | —                                                                  |
+| Slider              | [slider.md](references/google/components/slider.md)                       | [slider.md](references/apple/components/slider.md)                         | [slider.md](references/ibm/components/slider.md)                                   | [form-controls.md](references/blended/components/form-controls.md) |
+| Link                | —                                                                         | —                                                                          | [link.md](references/ibm/components/link.md)                                       | —                                                                  |
+| Icon Button         | [icon-button.md](references/google/components/icon-button.md)             | —                                                                          | (use button.md ghost variant)                                                      | —                                                                  |
+| Divider             | [divider.md](references/google/components/divider.md)                     | —                                                                          | —                                                                                  | [misc.md](references/blended/components/misc.md)                   |
+| FAB                 | [fab.md](references/google/components/fab.md)                             | —                                                                          | —                                                                                  | —                                                                  |
+| Badge               | [badge.md](references/google/components/badge.md)                         | [badge.md](references/apple/components/badge.md)                           | [tag.md](references/ibm/components/tag.md)                                         | [misc.md](references/blended/components/misc.md)                   |
+| Tooltip / Popover   | [tooltip.md](references/google/components/tooltip.md)                     | [popover.md](references/apple/components/popover.md)                       | [popover.md](references/ibm/components/popover.md)                                 | [misc.md](references/blended/components/misc.md)                   |
+| Avatar              | —                                                                         | —                                                                          | —                                                                                  | [misc.md](references/blended/components/misc.md)                   |
+| Skeleton            | —                                                                         | —                                                                          | (built into each component file as Skeleton variant)                               | [misc.md](references/blended/components/misc.md)                   |
+| Empty State         | —                                                                         | —                                                                          | —                                                                                  | [misc.md](references/blended/components/misc.md)                   |
+| Top App Bar / Header| [top-app-bar.md](references/google/components/top-app-bar.md)             | [toolbar.md](references/apple/components/toolbar.md)                       | [ui-shell.md](references/ibm/components/ui-shell.md)                               | —                                                                  |
+| Page Header (product)| —                                                                        | —                                                                          | [page-header.md](references/ibm/components/page-header.md)                         | —                                                                  |
+| Bottom App Bar      | [bottom-app-bar.md](references/google/components/bottom-app-bar.md)       | —                                                                          | —                                                                                  | —                                                                  |
+| Nav Rail            | [navigation-rail.md](references/google/components/navigation-rail.md)     | —                                                                          | (use ui-shell.md SideNav rail mode)                                                | —                                                                  |
+| Bottom Sheet        | [bottom-sheet.md](references/google/components/bottom-sheet.md)           | [sheet.md](references/apple/components/sheet.md)                           | —                                                                                  | —                                                                  |
+| Side Sheet          | [side-sheet.md](references/google/components/side-sheet.md)               | —                                                                          | —                                                                                  | —                                                                  |
+| Search Bar          | [search-bar.md](references/google/components/search-bar.md)               | [search-field.md](references/apple/components/search-field.md)             | [search.md](references/ibm/components/search.md)                                   | —                                                                  |
+| Segmented / Switcher| [segmented-button.md](references/google/components/segmented-button.md)   | [segmented-control.md](references/apple/components/segmented-control.md)   | [content-switcher.md](references/ibm/components/content-switcher.md)               | —                                                                  |
+| Date Picker         | [date-picker.md](references/google/components/date-picker.md)             | [date-picker.md](references/apple/components/date-picker.md)               | [date-picker.md](references/ibm/components/date-picker.md)                         | —                                                                  |
+| Time Picker         | [time-picker.md](references/google/components/time-picker.md)             | —                                                                          | [time-picker.md](references/ibm/components/time-picker.md)                         | —                                                                  |
+| Accordion / Disclosure| —                                                                       | [disclosure-group.md](references/apple/components/disclosure-group.md)     | [accordion.md](references/ibm/components/accordion.md)                             | —                                                                  |
+| Breadcrumb          | —                                                                         | —                                                                          | [breadcrumb.md](references/ibm/components/breadcrumb.md)                           | —                                                                  |
+| Pagination          | —                                                                         | —                                                                          | [pagination.md](references/ibm/components/pagination.md)                           | —                                                                  |
+| Stepper / Process   | —                                                                         | [stepper.md](references/apple/components/stepper.md)                       | [progress-indicator.md](references/ibm/components/progress-indicator.md)           | —                                                                  |
+| File Uploader       | —                                                                         | —                                                                          | [file-uploader.md](references/ibm/components/file-uploader.md)                     | —                                                                  |
+| Code Snippet        | —                                                                         | —                                                                          | [code-snippet.md](references/ibm/components/code-snippet.md)                       | —                                                                  |
+| Carousel            | [carousel.md](references/google/components/carousel.md)                   | —                                                                          | —                                                                                  | —                                                                  |
+| Navigation Bar      | —                                                                         | [navigation-bar.md](references/apple/components/navigation-bar.md)         | —                                                                                  | —                                                                  |
+| Picker              | —                                                                         | [picker.md](references/apple/components/picker.md)                         | —                                                                                  | —                                                                  |
+| Action Sheet        | —                                                                         | [action-sheet.md](references/apple/components/action-sheet.md)             | —                                                                                  | —                                                                  |
+| Pull-down Menu      | —                                                                         | [menu.md](references/apple/components/menu.md)                             | —                                                                                  | —                                                                  |
+| Data Table          | —                                                                         | [table.md](references/apple/components/table.md)                           | [data-table.md](references/ibm/components/data-table.md)                           | —                                                                  |
+| Structured List     | —                                                                         | —                                                                          | [structured-list.md](references/ibm/components/structured-list.md)                 | —                                                                  |
+| Tree View           | —                                                                         | —                                                                          | [tree-view.md](references/ibm/components/tree-view.md)                             | —                                                                  |
+| Fluid Form          | —                                                                         | —                                                                          | [fluid-form.md](references/ibm/components/fluid-form.md)                           | —                                                                  |
+| Collection/Grid     | —                                                                         | [collection.md](references/apple/components/collection.md)                 | —                                                                                  | —                                                                  |
+| Page Control        | —                                                                         | [page-control.md](references/apple/components/page-control.md)             | —                                                                                  | —                                                                  |
+| Split View          | —                                                                         | [split-view.md](references/apple/components/split-view.md)                 | —                                                                                  | —                                                                  |
+| Scroll View         | —                                                                         | [scroll-view.md](references/apple/components/scroll-view.md)               | —                                                                                  | —                                                                  |
+| Label               | —                                                                         | [label.md](references/apple/components/label.md)                           | —                                                                                  | —                                                                  |
+| Gauge               | —                                                                         | [gauge.md](references/apple/components/gauge.md)                           | —                                                                                  | —                                                                  |
+| Activity Ring       | —                                                                         | [activity-ring.md](references/apple/components/activity-ring.md)           | —                                                                                  | —                                                                  |
+| Chart               | —                                                                         | [chart.md](references/apple/components/chart.md)                           | —                                                                                  | —                                                                  |
+| AI Label / AI Surface| —                                                                        | —                                                                          | [ai-label.md](references/ibm/components/ai-label.md)                               | —                                                                  |
 
 ---
 
@@ -208,6 +227,7 @@ This creative direction frames EVERY subsequent decision — which components to
 | --------------- | ------------------------------------------- |
 | Google / M3     | `references/google/components/` (32 files)  |
 | Apple / HIG     | `references/apple/components/` (33 files)   |
+| IBM / Carbon    | `references/ibm/components/` (38 files)     |
 | Blend (default) | `references/blended/components/` (12 files) |
 
 Scan the file names and mentally map what's available. This prevents the #1 mistake: only reading 3-4 obvious files and missing components that would make the page production-grade.
@@ -279,6 +299,7 @@ Read in this order:
 | --------------- | ----------------------------------------------------------------------- | ------------------------------------------------------ |
 | Google / M3     | [google/overview.md](references/google/overview.md) + page-level files  | `google/components/{component}.md` for ALL identified  |
 | Apple / HIG     | [apple/overview.md](references/apple/overview.md) + page-level files    | `apple/components/{component}.md` for ALL identified   |
+| IBM / Carbon    | [ibm/overview.md](references/ibm/overview.md) + page-level files (incl. `pictograms.md`) | `ibm/components/{component}.md` for ALL identified |
 | Blend (default) | [blended/design-principles.md](references/blended/design-principles.md) | `blended/components/{component}.md` for ALL identified |
 
 ### 3.5 Choose Variants Intentionally
@@ -402,6 +423,19 @@ Put design tokens in `tailwind.config.js` under `theme.extend.colors` so the who
 
 **Vue/Svelte:** Reference HTML → `<template>`, Reference CSS → `<style scoped>`.
 
+**IBM Carbon — verbatim source override (mandatory for IBM/Carbon system):**
+
+Unlike Apple and Google specs (which are paraphrased patterns you translate), Carbon component reference files embed the **actual Carbon source code from Storybook** — both React (`{Component}.stories.js`) and Web Components (`{component}.stories.ts`). When the locked design system is IBM/Carbon:
+
+1. **Output the embedded code AS-IS.** Do NOT regenerate the markup. Do NOT paraphrase the JSX or HTML. Copy the verbatim ` ```jsx ``` ` block from the "React (verbatim from Storybook)" section directly into your output.
+2. **Keep `cds--*` and `<cds-*>` class/element names exactly.** Don't rename them. Don't substitute generic `<button>` for `<cds-button>` — Carbon's web components ARE the API surface.
+3. **For React projects:** copy from the React (verbatim) section. Include the `import { ... } from '@carbon/react';` statement. Add `import '@carbon/styles/css/styles.css';` once at the app entry.
+4. **For non-React projects (HTML, Vue, Svelte, Astro, etc.):** copy from the Web Components (verbatim) section or the Plain HTML (derived) section. Include `import '@carbon/web-components/es/components/{name}/index.js';` per element used, plus `<link rel="stylesheet" href="https://unpkg.com/@carbon/styles/css/styles.css">` once.
+5. **Allowed swaps:** text content, event handlers, prop values (size="lg", kind="primary"). NOT structure, NOT class names, NOT element names.
+6. **The reference file IS the deliverable** for Carbon — your job is composition (which variants, which sizes, what data) and theming (White vs G100), not implementing the components yourself.
+
+This rule is Carbon-specific and overrides the general "translate the spec" guidance above. For Apple and Google, continue translating spec → framework as normal.
+
 ### 4B. Composition Principles (Apply to Every Page)
 
 **Read** [Composition Principles Reference](composition-principles.md) for detailed guidance on:
@@ -430,6 +464,19 @@ Put design tokens in `tailwind.config.js` under `theme.extend.colors` so the who
 - **Overline → Display → Body → CTA** is the per-section hierarchy (Overline = M3's eyebrow)
 - **State layers** on all interactive elements (0.08 hover overlay via ::before, NOT background color change)
 
+**IBM Carbon pages:**
+- **Marketing/landing**: use `.cds--page` (max-width 1584px centered). Dashboards/apps use `.cds--dashboard` (full-width, no max-width).
+- **Pictograms are mandatory for marketing illustrations** — load `@carbon/pictograms` SVGs ONLY (`<img src="https://unpkg.com/@carbon/pictograms/svg/{name}.svg">` or `import { Analytics } from '@carbon/pictograms-react'`). NEVER custom illustrations, NEVER emoji, NEVER icons-as-pictograms. Look up by name in `pictograms.md`. If a pictogram doesn't exist, pick the closest catalog match — don't invent one.
+- **Pictogram sizing**: 64-96px (feature cards), 96-128px (hero), 32-48px (sidebar nav). NEVER smaller than 32px (icon territory).
+- **NO drop shadows** on Tiles in marketing — use Layer-01 / Layer-02 alternation for depth instead.
+- **Editorial scale** for marketing: fluid-display-04 (42-92px responsive) for heroes. **Productive scale** for product UI (heading-01..07, body-01/02). Read `editorial-type.md` for marketing.
+- **LEFT-aligned heroes** (NOT centered) — IBM.com convention. Eyebrow → fluid-display headline → body-02 → primary + secondary buttons.
+- **96-160px between sections** (heavy whitespace). NEVER cram sections together.
+- **NO emoji ANYWHERE** — use `@carbon/icons` (UI/inline) or `@carbon/pictograms` (marketing/editorial). Emoji breaks the Carbon look instantly.
+- **For dashboards**: UIShell (header + sidenav) + DataTable as primary content + Tile grids on Layer-01 background. Read `ui-shell.md` and `data-table.md`.
+- **For AI interfaces**: wrap key surfaces with `data-ai="true"` for AI Aura border, use AILabel inline, follow chat shell pattern from `page-patterns.md`.
+- **Sharp corners everywhere** — `border-radius: 0` on every container, button, tile, input. Tags/Tooltips/Popovers are the only exceptions (`2px`).
+
 Apply these principles to every page — the difference between "technically correct" and "feels designed".
 
 ### 4C. Platform-Specific Polish
@@ -450,6 +497,21 @@ Apply these principles to every page — the difference between "technically cor
 - Press states use opacity reduction (0.75) not color change
 - `position: sticky` toolbars that dissolve into Liquid Glass on scroll
 - Vibrancy and materials system for sidebar/overlay surfaces
+
+**IBM Carbon Design System:**
+
+- **Sharp corners by default** (`border-radius: 0`). Only Tag/Tooltip/Popover use `2px`. Adding any other border-radius is the #1 way to make output look non-Carbon.
+- **Layer tier nesting**: Background → Layer-01 → Layer-02 → Layer-03 (use `data-layer="01"` attribute or nested `.cds--layer` classes). This is Carbon's surface-elevation alternative — NOT shadows, NOT tonal elevation.
+- **IBM Plex font stack**: `'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif` + `-webkit-font-smoothing: antialiased`. Load via Google Fonts CDN (Plex Sans 300/400/600/700 + Plex Mono 400/500).
+- **Productive vs Expressive motion**:
+  - Productive (70-150ms, productive easing curves) = UI feedback (button hover, dropdown open, focus ring)
+  - Expressive (240-700ms, expressive easing curves) = entrances/large surfaces (modal slide-in, page transitions, hero animations)
+- **2x grid**: 16-column with 32px gutters (wide). Breakpoints: sm 320 / md 672 / lg 1056 / xlg 1312 / max 1584. Max-width 1584px for marketing pages.
+- **Focus ring**: `outline: 2px solid var(--cds-focus); outline-offset: 0; box-shadow: inset 0 0 0 1px var(--cds-background);` — Carbon's signature double-ring focus (NOT outline-offset like Apple, NOT state-layer like M3).
+- **Hover on filled buttons** = darker shade of the same color (e.g., blue-60 → blue-70). NOT opacity change (Apple), NOT state layer overlay (M3).
+- **AI surfaces**: when an interface deals with AI generation/chat, apply `data-ai="true"` to the wrapping element and use the `--cds-ai-aura-*` gradient border + `--cds-ai-inner-shadow` glow + `<cds-ai-label>` "AI" badge inline.
+- **Spacing on 4px grid** that doubles: 2, 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96, 160px. NEVER use values outside this scale.
+- **NO drop shadows**, **NO border-radius**, **NO tonal elevation**, **NO Liquid Glass** — Carbon is FLAT and uses Layer tiers + sharp borders for hierarchy.
 
 **Blended / Custom:**
 

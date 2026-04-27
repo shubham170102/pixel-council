@@ -11,7 +11,7 @@
     "plugins": [
         {
             "name": "pixel-council",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": "./",
             "description": "Build production-grade UI using real design system specs from the world's top companies — so Claude builds like a senior designer, not a prompt guesser.",
             "author": {

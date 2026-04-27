@@ -1,6 +1,6 @@
 # Pixel Council
 
-A Claude Code plugin that produces production-grade UI — not AI-generated boilerplate. It encodes the real design specifications from Google Material Design 3 and Apple Human Interface Guidelines into 86 reference files that Claude reads before writing any code.
+A Claude Code plugin that produces production-grade UI — not AI-generated boilerplate. It encodes the real design specifications from Google Material Design 3, Apple Human Interface Guidelines, and IBM Carbon Design System into 129 reference files that Claude reads before writing any code.
 
 ## The Problem
 
@@ -24,6 +24,7 @@ Pixel Council gives Claude the actual design system specs — resolved hex value
 |---------|----------|
 | **Google Material Design 3** | 32 components + 3 page-level refs (icons, editorial type, page patterns), 34 color roles, elevation, typescale, Material Symbols, motion easing |
 | **Apple HIG** | 33 components + 3 page-level refs (SF Symbols, editorial type, page patterns), 15 system colors, SF Pro, Liquid Glass, shadow system |
+| **IBM Carbon** | 38 components + 4 page-level refs (icons, **pictograms**, editorial type, page patterns), **4 themes** (White/G10/G90/G100), IBM Plex, sharp corners, Layer tier system, **AI surface tokens**, Apache 2.0 — every component embeds **verbatim Storybook source code** (React + Web Components) |
 | **Blended** (default) | 12 components combining Google's systematic tokens with Apple's refinement |
 
 ## Plugin Components
@@ -136,6 +137,7 @@ Check if my dark mode implementation matches the spec
 | Just describe the UI (default) | **Blended** — best of Google + Apple |
 | "Google style" / "Material style" / "M3" | Google Material Design 3 specs |
 | "Apple style" / "iOS style" / "HIG" | Apple Human Interface Guidelines specs |
+| "IBM" / "Carbon" / "enterprise dashboard" / "data table" / "AI app" | IBM Carbon Design System specs (verbatim Storybook source) |
 
 ### What Happens Behind the Scenes
 
@@ -146,7 +148,7 @@ Check if my dark mode implementation matches the spec
 5. Claude translates the reference HTML+CSS into your project's framework (React, Tailwind, Vue, etc.)
 6. Result: pixel-perfect UI with proper tokens, states, and accessibility — not generic AI output
 
-## What's Inside (86 files, 35,000+ lines)
+## What's Inside (129 files, 70,000+ lines)
 
 Every component file is a **self-contained implementation guide**. Claude reads ONE file and gets everything needed — no guessing.
 
@@ -181,12 +183,27 @@ skills/pixel-council/references/
 │       ├── button.md          # 4 styles, pressed opacity, continuous corners
 │       └── ... (32 more)
 │
+├── ibm/                       # 43 files (38 components + 5 page-level — adds pictograms.md)
+│   ├── overview.md            # 4 themes (White/G10/G90/G100), 122 hex tokens, IBM Plex, motion, 2x grid, AI tokens, Shape rules
+│   ├── icons.md               # @carbon/icons (Apache 2.0, web-redistributable), 24 inlined SVGs, 4 sizes
+│   ├── pictograms.md          # @carbon/pictograms (Carbon-only), 12 inlined editorial illustrations
+│   ├── editorial-type.md      # Expressive + Fluid + Display scale (42-92px responsive headlines)
+│   ├── page-patterns.md       # IBM.com marketing + UIShell dashboards + AI surface patterns
+│   └── components/
+│       ├── button.md          # 10 variants verbatim from @carbon/react Storybook
+│       ├── data-table.md      # Carbon's flagship — sortable/expandable/selectable/batch actions
+│       ├── ui-shell.md        # Header + SideNav composite (rail + persistent + actions)
+│       ├── ai-label.md        # AI Label + AI Skeleton + Chat Button (2024+ AI surface system)
+│       └── ... (34 more)
+│
 └── blended/                   # 12 components + universal design principles
     ├── design-principles.md   # Spacing scale, easing functions, dark mode tokens
     └── components/
         ├── button.md          # 5 emphasis levels, loading spinner, all states
         └── ... (11 more)
 ```
+
+**Carbon special case:** Each `references/ibm/components/{name}.md` file embeds the **verbatim Storybook source code** for both React (`{Component}.stories.js`) and Web Components (`{component}.stories.ts`). The agent outputs Carbon's actual code — no paraphrasing, no recreation. This is unique to Carbon because it's an open-source component library where the actual code IS the deliverable.
 
 ## Plugin Structure
 
@@ -199,9 +216,10 @@ pixel-council/
 ├── skills/
 │   └── pixel-council/
 │       ├── SKILL.md              # Builds UI from reference specs
-│       └── references/           # 86 reference files
+│       └── references/           # 129 reference files
 │           ├── google/           # Material Design 3
 │           ├── apple/            # Human Interface Guidelines
+│           ├── ibm/              # Carbon Design System (verbatim Storybook source)
 │           └── blended/          # Best-of-both (default)
 ├── LICENSE
 ├── README.md
@@ -219,7 +237,7 @@ Adding a new company is just a new folder under `skills/pixel-council/references
 
 Contributions welcome:
 
-- **New design system references** (Stripe, IBM, Microsoft, Linear, Vercel, Shopify)
+- **New design system references** (Stripe, Microsoft, Linear, Vercel, Shopify)
 - **More component specs** for existing companies
 - **Bug fixes** in token values or CSS
 
